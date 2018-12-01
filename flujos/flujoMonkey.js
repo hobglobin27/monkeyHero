@@ -1,6 +1,8 @@
 window.onload = function () {
   monkeyHero.cargaImagen(monkeyHero.monoCaminandoDerecha);
   monkeyHero.cargaImagen(monkeyHero.monoCaminandoIzquierda);
+  monkeyHero.cargaImagen(monkeyHero.saltoDerecha);
+  monkeyHero.cargaImagen(monkeyHero.saltoIzquierda);
   gorilaDer.cargaImagen(gorilaDer.gorilas1Derecha);
   gorilaIzq.cargaImagen(gorilaIzq.gorilas2Izquierda);
   function update(){
@@ -10,11 +12,30 @@ window.onload = function () {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     //board.draw()
 
-    //Mueve heroe
-    if(monkeyHero.mueveDerecha)
+    //Mueve Heroe
+    if(monkeyHero.mueveDerecha && !monkeyHero.saltando)
       monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoDerecha[monkeyHero.contSecMovLeftRight]);
     else
-      monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoIzquierda[monkeyHero.contSecMovLeftRight]);
+      if(!monkeyHero.saltando)
+        monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoIzquierda[monkeyHero.contSecMovLeftRight]);
+
+    //Salto Heroe
+    if(monkeyHero.saltando)
+      if(monkeyHero.mueveDerecha)
+        monkeyHero.draw(monkeyHero.arrayImagesSaltoDerecha[monkeyHero.contSecMovLeftRight]);
+      else {
+        monkeyHero.draw(monkeyHero.arrayImagesSaltoIzquierda[monkeyHero.contSecMovLeftRight]);
+      }
+    if(frames%2===0){
+      if(monkeyHero.saltando){
+        if(frames%14===0)
+          monkeyHero.contSecMovLeftRight++;
+        if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesSaltoDerecha.length)
+          monkeyHero.contSecMovLeftRight=monkeyHero.arrayImagesSaltoDerecha.length-1;
+        monkeyHero.jump(monkeyHero.posicionInicialSalto);
+      }
+    }
+
 
     //Disparos Heroe
     for(let i=0; i<monkeyHero.arregloBalas.length;i++){

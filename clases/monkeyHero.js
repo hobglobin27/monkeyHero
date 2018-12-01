@@ -12,8 +12,12 @@ function MonkeyHero(posicionX, posicionY, width, height, velocidadX, velocidadY)
   this.balas=30;
   this.puntos=0;
   this.contSecMovLeftRight=0;
+  this.posicionInicialSalto=posicionY;
+  this.saltoArriba=true;
+  this.saltando=false;
   //Banderas
   this.mueveDerecha=true;
+  //Disparos
   this.arregloBalas=[];
 }
 
@@ -22,23 +26,49 @@ MonkeyHero.prototype.constructor=MonkeyHero;
 
 //Ejecuta movimientos
 MonkeyHero.prototype.moveLeft=function(){
-  this.x-=this.velocidadX;
-  this.contSecMovLeftRight++;
+  if(!this.saltando){
+    this.contSecMovLeftRight++;
+    this.x-=this.velocidadX;
+    if(this.contSecMovLeftRight===this.arrayImagesMonoCaminandoIzquierda.length)
+      this.contSecMovLeftRight=0;
+  }
+  else {
+    this.x-=this.velocidadX*1.4;
+  }
   this.mueveDerecha=false;
-  if(this.contSecMovLeftRight===this.arrayImagesMonoCaminandoIzquierda.length)
-    this.contSecMovLeftRight=0;
+
 }
 
 MonkeyHero.prototype.moveRight=function(){
-  this.x+=this.velocidadX;
-  this.contSecMovLeftRight++;
+  if(!this.saltando){
+    this.contSecMovLeftRight++;
+    this.x+=this.velocidadX;
+    if(this.contSecMovLeftRight===this.arrayImagesMonoCaminandoDerecha.length)
+      this.contSecMovLeftRight=0;
+  }
+  else {
+    this.x+=this.velocidadX*1.4;
+  }
   this.mueveDerecha=true;
-  if(this.contSecMovLeftRight===this.arrayImagesMonoCaminandoDerecha.length)
-    this.contSecMovLeftRight=0;
+
 }
 
-MonkeyHero.prototype.jump = function(){
-  this.y -=  velocidadY;
+MonkeyHero.prototype.jump = function(posicionInicialSalto){
+  if(this.y <= (posicionInicialSalto - monkeyHero.height*4))
+    this.saltoArriba=false;
+  if(this.saltoArriba && (this.y > (posicionInicialSalto - monkeyHero.height*4))){
+    if(this.contSecMovLeftRight>1)
+      this.y -= this.velocidadY;
+  }
+  if(!this.saltoArriba && (this.y < posicionInicialSalto)){
+    this.y += this.velocidadY;
+    if(this.y >= posicionInicialSalto){
+      this.y = posicionInicialSalto;
+      this.saltoArriba=true;
+      this.saltando=false;
+      this.contSecMovLeftRight=0;
+    }
+  }
 }
 
 //Agrega Balas

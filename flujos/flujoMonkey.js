@@ -36,27 +36,35 @@ window.onload = function () {
       }
     }
 
-
     //Disparos Heroe
     for(let i=0; i<monkeyHero.arregloBalas.length;i++){
-      if(monkeyHero.arregloBalas[i].mueveDerecha)
-        monkeyHero.arregloBalas[i].moveRight();
-      else
-        monkeyHero.arregloBalas[i].moveLeft();
-      monkeyHero.arregloBalas[i].draw();
+      if(monkeyHero.arregloBalas[i]!=null){
+        if(monkeyHero.arregloBalas[i].mueveDerecha)
+          monkeyHero.arregloBalas[i].moveRight();
+        else
+          monkeyHero.arregloBalas[i].moveLeft();
+        monkeyHero.arregloBalas[i].draw();7
+      }
     }
 
     //Mueve Gorila Izquierda
-    if(frames%8===0)
-      gorilaIzq.moveLeft();
-    gorilaIzq.draw(gorilaIzq.arrayImagesGorilas2Izquierda[gorilaIzq.contSecMovLeftRight]);
+    if(gorilaIzq!=null){
+      if(frames%8===0)
+        gorilaIzq.moveLeft();
+      gorilaIzq.draw(gorilaIzq.arrayImagesGorilas2Izquierda[gorilaIzq.contSecMovLeftRight]);
+    }
 
     //Mueve Gorila Derecha
-    if(frames%12===0)
-      gorilaDer.moveRight();
-    gorilaDer.draw(gorilaDer.arrayImagesGorilas1Derecha[gorilaDer.contSecMovLeftRight]);
+    if(gorilaDer!=null){
+      if(frames%12===0)
+        gorilaDer.moveRight();
+      gorilaDer.draw(gorilaDer.arrayImagesGorilas1Derecha[gorilaDer.contSecMovLeftRight]);
+    }
 
-    //gameOver()
+    //Valida impacto Gorilas
+    impactoGorilas();
+
+    gameOver()
 
   }
 
@@ -65,12 +73,32 @@ window.onload = function () {
   }
 
   function gameOver() {
-    if(monkeyHero.y < 0 || monkeyHero.y > canvas.height - monkeyHero.height || checkColition() ){
-      console.log('perdistes wei')
+    if(gorilaDer!=null && monkeyHero.dead(gorilaDer)){
       clearInterval(interval)
       interval = 0
       ctx.font = "30px Arial";
       ctx.fillText("Game Over",10,50);
+    }
+
+    if(gorilaIzq!=null && monkeyHero.dead(gorilaIzq)){
+      clearInterval(interval)
+      interval = 0
+      ctx.font = "30px Arial";
+      ctx.fillText("Game Over",10,50);
+    }
+  }
+
+  function impactoGorilas(){
+    for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+      if(gorilaDer!=null && monkeyHero.arregloBalas[i]!=null && gorilaDer.deadBala(monkeyHero.arregloBalas[i])){
+        gorilaDer=null;
+        monkeyHero.arregloBalas[i]=null;
+      }
+
+      if(gorilaIzq!=null && monkeyHero.arregloBalas[i]!=null && gorilaIzq.deadBala(monkeyHero.arregloBalas[i])){
+        gorilaIzq=null;
+        monkeyHero.arregloBalas[i]=null;
+      }
     }
   }
 

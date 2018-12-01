@@ -32,3 +32,12 @@ Balas.prototype.moveLeft=function(){
 Balas.prototype.moveRight=function(){
   this.x+=this.velocidadX;
 }
+
+//Valida colisiones
+Balas.prototype.left=function(){
+   return this.x;
+}
+
+Balas.prototype.right=function(){
+   return this.x+(this.width-30);
+}

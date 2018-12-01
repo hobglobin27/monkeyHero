@@ -20,3 +20,8 @@ GorilaIzq.prototype.moveLeft=function(){
   if(this.contSecMovLeftRight===this.arrayImagesGorilas2Izquierda.length)
     this.contSecMovLeftRight=0;
 }
+
+GorilaIzq.prototype.deadBala = function(bala) {
+  return !((this.right()  < bala.left())   ||
+           (this.left()   > bala.right()))
+}

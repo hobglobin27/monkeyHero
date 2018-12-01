@@ -162,11 +162,11 @@ Monkey.prototype.left=function(){
 }
 
 Monkey.prototype.right=function(){
-   return (this.x+this.width);
+   return (this.x+(this.width-25));
 }
 
 Monkey.prototype.top=function(){
-   return this.y;
+   return this.y+11;
 }
 
 Monkey.prototype.bottom=function(){

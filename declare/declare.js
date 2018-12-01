@@ -117,4 +117,5 @@ let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth,
 let gorilaIzq = new GorilaIzq(1200,470,80,80,3,3);
 let gorilaDer = new GorilaDer(-80,470,80,80,3,3);
 let interval, frames = 0;
-let obstacles = []
+let arregloGorilas = [];
+let numeroEnemigos=0;

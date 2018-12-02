@@ -22,6 +22,8 @@ GorilaIzq.prototype.moveLeft=function(){
 }
 
 GorilaIzq.prototype.deadBala = function(bala) {
-  return !((this.right()  < bala.left())   ||
-           (this.left()   > bala.right()))
+  return !((this.bottom() < bala.top())    ||
+           (this.top()    > bala.bottom()) ||
+           (this.right()  < bala.left())   ||
+           (this.left()   > bala.right()));
 }

@@ -3,8 +3,6 @@ window.onload = function () {
   monkeyHero.cargaImagen(monkeyHero.monoCaminandoIzquierda);
   monkeyHero.cargaImagen(monkeyHero.saltoDerecha);
   monkeyHero.cargaImagen(monkeyHero.saltoIzquierda);
-  gorilaDer.cargaImagen(gorilaDer.gorilas1Derecha);
-  gorilaIzq.cargaImagen(gorilaIzq.gorilas2Izquierda);
 
   function update(){
     frames++;
@@ -12,6 +10,7 @@ window.onload = function () {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     //board.draw()
 
+//////////////////////////Funcionalidad MonkeyHera/////////////////////////
     //Mueve Heroe
     if(monkeyHero.mueveDerecha && !monkeyHero.saltando)
       monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoDerecha[monkeyHero.contSecMovLeftRight]);
@@ -47,15 +46,19 @@ window.onload = function () {
       }
     }
 
-    if(frames%480 === 0){
-      numeroEnemigos=Math.floor(Math.random()*3);
+
+    //////////////////////////////Funcionalidad Gorilas/////////////////////////77
+
+    //Crea Gorilas
+    if(frames%480 === 0 || frames ===200){
+      numeroEnemigos=generaAleatorio(1,4);
       for(let i=0; i<numeroEnemigos; i++){
         if(i%2===0){
-          arregloGorilas.push(new GorilaDer(getAleatorioPosicion(80,180)*-1,470,80,80,getAleatorioVelocidad(7,2),getAleatorioVelocidad(7,2)));
+          arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,470,80,80,generaAleatorio(7,2),generaAleatorio(7,2)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas1Derecha);
         }
         else {
-          arregloGorilas.push(new GorilaIzq(getAleatorioPosicion(1200,1300),470,80,80,getAleatorioVelocidad(7,2),getAleatorioVelocidad(7,2)));
+          arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),470,80,80,generaAleatorio(7,2),generaAleatorio(7,2)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas2Izquierda);
         }
       }
@@ -77,22 +80,10 @@ window.onload = function () {
       }
     }
 
-    //Mueve Gorila Izquierda
-    /*if(gorilaIzq!=null){
-      if(frames%8===0)
-        gorilaIzq.moveLeft();
-      gorilaIzq.draw(gorilaIzq.arrayImagesGorilas2Izquierda[gorilaIzq.contSecMovLeftRight]);
-    }
+    //Valida impacto balas Gorilas
+    impactoBalasGorilas();
 
-    //Mueve Gorila Derecha
-    if(gorilaDer!=null){
-      if(frames%12===0)
-        gorilaDer.moveRight();
-      gorilaDer.draw(gorilaDer.arrayImagesGorilas1Derecha[gorilaDer.contSecMovLeftRight]);
-    }*/
-
-    //Valida impacto Gorilas
-    impactoGorilas();
+/////////////////////////////////////Valida fin juego/////////////////////////////
 
     gameOver()
 
@@ -103,42 +94,28 @@ window.onload = function () {
   }
 
   function gameOver() {
-    if(gorilaDer!=null && monkeyHero.dead(gorilaDer)){
-      clearInterval(interval)
-      interval = 0
-      ctx.font = "30px Arial";
-      ctx.fillText("Game Over",10,50);
-    }
-
-    if(gorilaIzq!=null && monkeyHero.dead(gorilaIzq)){
-      clearInterval(interval)
-      interval = 0
-      ctx.font = "30px Arial";
-      ctx.fillText("Game Over",10,50);
-    }
-  }
-
-  function impactoGorilas(){
-    for(let i=0; i<monkeyHero.arregloBalas.length;i++){
-      for(let j=0; j<arregloGorilas.length; j++){
-        if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
-          arregloGorilas[i]=null;
-          monkeyHero.arregloBalas[i]=null;
-        }
-
-        /*if(gorilaIzq!=null && monkeyHero.arregloBalas[i]!=null && gorilaIzq.deadBala(monkeyHero.arregloBalas[i])){
-          gorilaIzq=null;
-          monkeyHero.arregloBalas[i]=null;
-        }*/
+    for(let i=0; i<arregloGorilas.length; i++){
+      if(arregloGorilas[i]!=null && monkeyHero.dead(arregloGorilas[i])){
+        clearInterval(interval)
+        interval = 0
+        ctx.font = "30px Arial";
+        ctx.fillText("Game Over",10,50);
       }
     }
   }
 
-  function getAleatorioVelocidad(min, max){
-    return Math.floor(Math.random() * (max - min)) + min;
+  function impactoBalasGorilas(){
+    for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+      for(let j=0; j<arregloGorilas.length; j++){
+        if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
+          arregloGorilas[j]=null;
+          monkeyHero.arregloBalas[i]=null;
+        }
+      }
+    }
   }
 
-  function getAleatorioPosicion(min, max){
+  function generaAleatorio(min, max){
     return Math.floor(Math.random() * (max - min)) + min;
   }
 

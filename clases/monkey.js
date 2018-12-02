@@ -177,7 +177,7 @@ Monkey.prototype.dead = function(enemy) {
   return !((this.bottom() < enemy.top())    ||
            (this.top()    > enemy.bottom()) ||
            (this.right()  < enemy.left())   ||
-           (this.left()   > enemy.right()))
+           (this.left()   > enemy.right()));
 }
 
 //Ejecuta movimientos

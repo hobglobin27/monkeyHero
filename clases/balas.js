@@ -41,3 +41,11 @@ Balas.prototype.left=function(){
 Balas.prototype.right=function(){
    return this.x+(this.width-30);
 }
+
+Balas.prototype.top=function(){
+   return this.y+11;
+}
+
+Balas.prototype.bottom=function(){
+   return (this.y+this.height);
+}

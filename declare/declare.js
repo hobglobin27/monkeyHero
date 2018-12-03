@@ -101,6 +101,8 @@ let arrayRutaSaltoDerecha=["./images/SaltoDerecha/salto1.png",
                             "./images/SaltoDerecha/salto3.png",
                             "./images/SaltoDerecha/salto4.png",
                             "./images/SaltoDerecha/salto5.png",
+                            "./images/SaltoDerecha/salto4.png",
+                            "./images/SaltoDerecha/salto5.png",
                             "./images/SaltoDerecha/salto6.png"];
 
 let arrayRutaSaltoIzquierda=["./images/SaltoIzquierda/salto1.png",
@@ -108,7 +110,27 @@ let arrayRutaSaltoIzquierda=["./images/SaltoIzquierda/salto1.png",
                               "./images/SaltoIzquierda/salto3.png",
                               "./images/SaltoIzquierda/salto4.png",
                               "./images/SaltoIzquierda/salto5.png",
+                              "./images/SaltoIzquierda/salto4.png",
+                              "./images/SaltoIzquierda/salto5.png",
                               "./images/SaltoIzquierda/salto6.png"];
+
+let arrayRutaLoroDerecha=["./images/LorosDerecha/loro1.png",
+                          "./images/LorosDerecha/loro2.png",
+                          "./images/LorosDerecha/loro3.png",
+                          "./images/LorosDerecha/loro4.png",
+                          "./images/LorosDerecha/loro5.png",
+                          "./images/LorosDerecha/loro6.png",
+                          "./images/LorosDerecha/loro7.png",
+                          "./images/LorosDerecha/loro8.png"];
+
+let arrayRutaLoroIzquierda=["./images/LorosIzquierda/loro1.png",
+                            "./images/LorosIzquierda/loro2.png",
+                            "./images/LorosIzquierda/loro3.png",
+                            "./images/LorosIzquierda/loro4.png",
+                            "./images/LorosIzquierda/loro5.png",
+                            "./images/LorosIzquierda/loro6.png",
+                            "./images/LorosIzquierda/loro7.png",
+                            "./images/LorosIzquierda/loro8.png"];
 
 let arrayRutaTrampa=["./images/Trampa/trampa.png"];
 
@@ -117,6 +139,7 @@ let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth,
 let interval, frames = 0;
 let arregloGorilas = [];
 let arregloFrutas = [];
+let arregloLoros=[];
 let numeroEnemigos=0;
 let numeroFrutas=0;
 let tipoFruta=0;

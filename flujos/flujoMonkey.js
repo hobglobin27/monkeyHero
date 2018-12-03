@@ -27,7 +27,7 @@ window.onload = function () {
       }
     if(frames%2===0){
       if(monkeyHero.saltando){
-        if(frames%18===0)
+        if(frames%14===0)
           monkeyHero.contSecMovLeftRight++;
         if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesSaltoDerecha.length)
           monkeyHero.contSecMovLeftRight=monkeyHero.arrayImagesSaltoDerecha.length-1;
@@ -54,11 +54,11 @@ window.onload = function () {
       numeroEnemigos=generaAleatorio(1,5);
       for(let i=0; i<numeroEnemigos; i++){
         if(i%2===0){
-          arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(2,10),generaAleatorio(2,7)));
+          arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas1Derecha);
         }
         else {
-          arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(2,10),generaAleatorio(2,7)));
+          arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas2Izquierda);
         }
       }
@@ -76,6 +76,41 @@ window.onload = function () {
           if(frames%12===0)
             arregloGorilas[i].moveRight();
           arregloGorilas[i].draw(arregloGorilas[i].arrayImagesGorilas1Derecha[arregloGorilas[i].contSecMovLeftRight]);
+        }
+      }
+    }
+
+    //////////////////////////////Funcionalidad Loros/////////////////////////77
+
+    //Crea Loros
+    if(frames%1000 === 0 || frames ===100){
+      numeroEnemigos=generaAleatorio(1,5);
+      for(let i=0; i<numeroEnemigos; i++){
+        if(i%2===0){
+          arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,400),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+          arregloLoros[arregloLoros.length-1].cargaImagen(1);
+          arregloLoros[arregloLoros.length-1].mueveDerecha=true;
+        }
+        else {
+          arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,400),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+          arregloLoros[arregloLoros.length-1].cargaImagen(2);
+          arregloLoros[arregloLoros.length-1].mueveDerecha=false;
+        }
+      }
+    }
+
+    //Mueve loros
+    for(let i=0; i<arregloLoros.length; i++){
+      if(arregloLoros[i]!=null){
+        if(!arregloLoros[i].mueveDerecha){
+          if(frames%8===0)
+            arregloLoros[i].moveLeft();
+          arregloLoros[i].draw(arregloLoros[i].arrayImagesLoros[arregloLoros[i].contSecMovLeftRight]);
+        }
+        if(arregloLoros[i].mueveDerecha){
+          if(frames%8===0)
+            arregloLoros[i].moveRight();
+          arregloLoros[i].draw(arregloLoros[i].arrayImagesLoros[arregloLoros[i].contSecMovLeftRight]);
         }
       }
     }
@@ -126,6 +161,9 @@ window.onload = function () {
     //Valida impacto balas Gorilas
     impactoBalasGorilas();
 
+    //Valida impacto balas Loros
+    impactoBalasLoros();
+
     //Valida recoge Frutas
     recogeFruta();
 
@@ -161,6 +199,19 @@ window.onload = function () {
       }
     }
   }
+
+  function impactoBalasLoros(){
+    for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+      for(let j=0; j<arregloLoros.length; j++){
+        if(arregloLoros[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloLoros[j].deadBala(monkeyHero.arregloBalas[i])){
+          monkeyHero.puntos+=arregloLoros[j].puntos;
+          arregloLoros[j]=null;
+          monkeyHero.arregloBalas[i]=null;
+        }
+      }
+    }
+  }
+
 
   function recogeFruta(){
     for(let i=0; i<arregloFrutas.length; i++){

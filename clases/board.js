@@ -4,7 +4,7 @@ function Board() {
   this.width = canvas.width;
   this.height = canvas.height;
   this.img = new Image();
-  this.img.src = "./images/fondos/fondo.png";
+  this.img.src = "./images/Fondos/fondo.png";
 
   this.img.onload = function(){
     console.log(this);

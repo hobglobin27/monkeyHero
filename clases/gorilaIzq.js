@@ -1,11 +1,15 @@
 //Gorila lado derecho
 function GorilaIzq(posicionX, posicionY, width, height, velocidadX, velocidadY){
   Monkey.call(this, posicionX, posicionY, width, height, velocidadX, velocidadY);
-  //Flags acciones
 
+  //Flags acciones
   this.contSecMovLeftRight=0;
+
   //Banderas
   this.mueveDerecha=false;
+
+  //Puntos Gorila
+  this.puntos=3;
 }
 
 GorilaIzq.prototype= Object.create(Monkey.prototype);

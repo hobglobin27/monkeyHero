@@ -1,12 +1,12 @@
 let canvas = document.querySelector('#monkey')
 let ctx = canvas.getContext('2d')
 
-let monkeyHeroWidth=50;
-let monkeyHeroHeight=50;
+let monkeyHeroWidth=60;
+let monkeyHeroHeight=60;
 let monkeyHeroVelX=10;
 let monkeyHeroVelY=10;
 let monkeyHeroPosX=600;
-let monkeyHeroPosY=500;
+let monkeyHeroPosY=560;
 let balasWidth=40;
 let balasHeight=40;
 let balasVelocidad=3;
@@ -116,4 +116,8 @@ let board = new Board();
 let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth, monkeyHeroHeight, monkeyHeroVelX, monkeyHeroVelY);
 let interval, frames = 0;
 let arregloGorilas = [];
+let arregloFrutas = [];
 let numeroEnemigos=0;
+let numeroFrutas=0;
+let tipoFruta=0;
+let tamañoFruta=0;

@@ -41,7 +41,6 @@ function Monkey(posicionX, posicionY, width, height, velocidadX, velocidadY){
 
 //Llena arreglos de imagenes
 Monkey.prototype.cargaImagen=function(tipoMovimiento){
-
   switch(tipoMovimiento){
     case this.ataque1Derecha:
       for(let i=0; i<arrayRutaAtaque1Derecha.length;i++){

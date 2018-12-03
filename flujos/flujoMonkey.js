@@ -8,7 +8,7 @@ window.onload = function () {
     frames++;
 
     ctx.clearRect(0,0, canvas.width, canvas.height)
-    //board.draw()
+    /board.draw()
 
 //////////////////////////Funcionalidad MonkeyHera/////////////////////////
     //Mueve Heroe
@@ -51,14 +51,14 @@ window.onload = function () {
 
     //Crea Gorilas
     if(frames%480 === 0 || frames ===200){
-      numeroEnemigos=generaAleatorio(1,4);
+      numeroEnemigos=generaAleatorio(1,5);
       for(let i=0; i<numeroEnemigos; i++){
         if(i%2===0){
-          arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,470,80,80,generaAleatorio(7,2),generaAleatorio(7,2)));
+          arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(2,10),generaAleatorio(2,7)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas1Derecha);
         }
         else {
-          arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),470,80,80,generaAleatorio(7,2),generaAleatorio(7,2)));
+          arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(2,10),generaAleatorio(2,7)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas2Izquierda);
         }
       }
@@ -80,8 +80,54 @@ window.onload = function () {
       }
     }
 
+    //////////////////////////////////Funcionalidad Frutas//////////////////////////
+
+    //Crea Frutas
+    if(frames%1000 === 0){
+      numeroFrutas=generaAleatorio(1,5);
+      for(let i=0; i<numeroFrutas; i++){
+        tipoFruta=generaAleatorio(0,6);
+        switch(tipoFruta){
+          case 0:
+            tamañoFruta=30;
+          break;
+          case 1:
+            tamañoFruta=40;
+          break;
+          case 2:
+            tamañoFruta=55;
+          break;
+          case 3:
+            tamañoFruta=55;
+          break;
+          case 4:
+            tamañoFruta=60;
+          break;
+          case 5:
+            tamañoFruta=55;
+          break;
+        }
+        arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
+        arregloFrutas[arregloFrutas.length-1].cargaImagen(tipoFruta);
+        arregloFrutas[arregloFrutas.length-1].tipoFruta=tipoFruta;
+      }
+    }
+
+    //Mueve frutas
+    for(let i=0; i<arregloFrutas.length; i++){
+      if(arregloFrutas[i]!=null){
+        if(frames%12===0)
+          arregloFrutas[i].moveDown();
+        arregloFrutas[i].draw();
+      }
+    }
+
+
     //Valida impacto balas Gorilas
     impactoBalasGorilas();
+
+    //Valida recoge Frutas
+    recogeFruta();
 
 /////////////////////////////////////Valida fin juego/////////////////////////////
 
@@ -108,6 +154,7 @@ window.onload = function () {
     for(let i=0; i<monkeyHero.arregloBalas.length;i++){
       for(let j=0; j<arregloGorilas.length; j++){
         if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
+          monkeyHero.puntos+=arregloGorilas[j].puntos;
           arregloGorilas[j]=null;
           monkeyHero.arregloBalas[i]=null;
         }
@@ -115,9 +162,21 @@ window.onload = function () {
     }
   }
 
+  function recogeFruta(){
+    for(let i=0; i<arregloFrutas.length; i++){
+      if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
+        monkeyHero.puntos+=arregloFrutas[i].puntosFruta;
+        if(arregloFrutas[i].tipoFruta===3)
+          monkeyHero.balas+=arregloFrutas[i].balasIfPlatanos;
+        arregloFrutas[i]=null;
+      }
+    }
+  }
+
+
   function generaAleatorio(min, max){
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  startGame()
+  startGame();
 }

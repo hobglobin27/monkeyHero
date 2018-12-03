@@ -8,7 +8,7 @@ window.onload = function () {
     frames++;
 
     ctx.clearRect(0,0, canvas.width, canvas.height)
-    /board.draw()
+    board.draw()
 
 //////////////////////////Funcionalidad MonkeyHera/////////////////////////
     //Mueve Heroe
@@ -27,7 +27,7 @@ window.onload = function () {
       }
     if(frames%2===0){
       if(monkeyHero.saltando){
-        if(frames%14===0)
+        if(frames%18===0)
           monkeyHero.contSecMovLeftRight++;
         if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesSaltoDerecha.length)
           monkeyHero.contSecMovLeftRight=monkeyHero.arrayImagesSaltoDerecha.length-1;

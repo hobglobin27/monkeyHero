@@ -3,10 +3,12 @@ addEventListener('keydown', function(e){
   switch(e.keyCode){
     case 37:
       monkeyHero.moveLeft();
+      board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
       console.log('left',  monkeyHero);
     break;
     case 39:
       monkeyHero.moveRight();
+      board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
       console.log('right', monkeyHero);
     break;
     case 83:

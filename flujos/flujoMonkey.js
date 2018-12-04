@@ -12,11 +12,13 @@ window.onload = function () {
 
 //////////////////////////Funcionalidad MonkeyHera/////////////////////////
     //Mueve Heroe
-    if(monkeyHero.mueveDerecha && !monkeyHero.saltando)
+    if(monkeyHero.mueveDerecha && !monkeyHero.saltando){
       monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoDerecha[monkeyHero.contSecMovLeftRight]);
+    }
     else
-      if(!monkeyHero.saltando)
+      if(!monkeyHero.saltando){
         monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoIzquierda[monkeyHero.contSecMovLeftRight]);
+      }
 
     //Salto Heroe
     if(monkeyHero.saltando)
@@ -87,12 +89,12 @@ window.onload = function () {
       numeroEnemigos=generaAleatorio(1,5);
       for(let i=0; i<numeroEnemigos; i++){
         if(i%2===0){
-          arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,400),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+          arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloLoros[arregloLoros.length-1].cargaImagen(1);
           arregloLoros[arregloLoros.length-1].mueveDerecha=true;
         }
         else {
-          arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,400),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+          arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloLoros[arregloLoros.length-1].cargaImagen(2);
           arregloLoros[arregloLoros.length-1].mueveDerecha=false;
         }
@@ -186,6 +188,15 @@ window.onload = function () {
         ctx.fillText("Game Over",10,50);
       }
     }
+
+    for(let i=0; i<arregloLoros.length; i++){
+      if(arregloLoros[i]!=null && monkeyHero.dead(arregloLoros[i])){
+        clearInterval(interval)
+        interval = 0
+        ctx.font = "30px Arial";
+        ctx.fillText("Game Over",10,50);
+      }
+    }
   }
 
   function impactoBalasGorilas(){
@@ -212,7 +223,6 @@ window.onload = function () {
     }
   }
 
-
   function recogeFruta(){
     for(let i=0; i<arregloFrutas.length; i++){
       if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
@@ -223,7 +233,6 @@ window.onload = function () {
       }
     }
   }
-
 
   function generaAleatorio(min, max){
     return Math.floor(Math.random() * (max - min)) + min;

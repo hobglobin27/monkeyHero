@@ -4,11 +4,58 @@ addEventListener('keydown', function(e){
     case 37:
       monkeyHero.moveLeft();
       board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
+
+      //Aleja cuando camina izquierda
+      for(let i=0;i<arregloLoros.length; i++)
+        if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
+          arregloLoros[i].x+=monkeyHero.velocidadX;
+
+      for(let i=0;i<arregloGorilas.length; i++)
+        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
+          arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+      //Acerca cuando camina izquierda
+      for(let i=0;i<arregloLoros.length; i++)
+        if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
+          arregloLoros[i].x+=monkeyHero.velocidadX;
+
+      for(let i=0;i<arregloGorilas.length; i++)
+        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
+          arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+      for(let i=0;i<arregloFrutas.length; i++)
+        if(arregloFrutas[i]!==null)
+          arregloFrutas[i].x+=monkeyHero.velocidadX;
+
+
       console.log('left',  monkeyHero);
     break;
     case 39:
       monkeyHero.moveRight();
       board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
+
+      //Aleja cuando camina derecha
+      for(let i=0;i<arregloLoros.length; i++)
+        if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
+          arregloLoros[i].x-=monkeyHero.velocidadX;
+
+      for(let i=0;i<arregloGorilas.length; i++)
+        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
+          arregloGorilas[i].x-=monkeyHero.velocidadX;
+
+      //Acerca cuando camina derecha
+      for(let i=0;i<arregloLoros.length; i++)
+        if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
+          arregloLoros[i].x-=monkeyHero.velocidadX;
+
+      for(let i=0;i<arregloGorilas.length; i++)
+        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
+          arregloGorilas[i].x-=monkeyHero.velocidadX;
+
+      for(let i=0;i<arregloFrutas.length; i++)
+        if(arregloFrutas[i]!==null)
+          arregloFrutas[i].x-=monkeyHero.velocidadX;
+
       console.log('right', monkeyHero);
     break;
     case 83:

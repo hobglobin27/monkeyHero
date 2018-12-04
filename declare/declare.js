@@ -10,6 +10,9 @@ let monkeyHeroPosY=560;
 let balasWidth=40;
 let balasHeight=40;
 let balasVelocidad=3;
+let scoreWidth=300;
+let scoreHeight=100;
+let imageScore= new Image();
 
 //Arreglos ruta imagenes
 let arrayRutaAtaque1Derecha=["./images/Ataque1Derecha/ataque1.png",

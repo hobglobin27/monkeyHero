@@ -5,6 +5,10 @@ window.onload = function () {
   monkeyHero.cargaImagen(monkeyHero.saltoIzquierda);
   monkeyHero.cargaImagen(monkeyHero.ataque1Derecha);
   monkeyHero.cargaImagen(monkeyHero.ataque1Izquierda);
+  imageScore.src="./images/Score/score.png";
+  imageScore.onload=function(){
+    console.log("Carga Imagen Score");
+  };
 
   function update(){
     frames++;
@@ -59,10 +63,13 @@ window.onload = function () {
       if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesAtaque1Derecha.length){
         monkeyHero.contSecMovLeftRight=0;
         monkeyHero.disparando=false;
-        monkeyHero.width=60;
-        monkeyHero.height=60;
         monkeyHero.y=560;
       }
+    }
+
+    if(!monkeyHero.disparando){
+      monkeyHero.width=60;
+      monkeyHero.height=60;
     }
 
     for(let i=0; i<monkeyHero.arregloBalas.length;i++){
@@ -159,16 +166,16 @@ window.onload = function () {
             tamañoFruta=40;
           break;
           case 2:
-            tamañoFruta=55;
+            tamañoFruta=50;
           break;
           case 3:
-            tamañoFruta=55;
+            tamañoFruta=50;
           break;
           case 4:
-            tamañoFruta=60;
+            tamañoFruta=55;
           break;
           case 5:
-            tamañoFruta=55;
+            tamañoFruta=50;
           break;
         }
         arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
@@ -186,6 +193,8 @@ window.onload = function () {
       }
     }
 
+    //Pinta puntuacion y balas restantes
+    pintaScore();
 
     //Valida impacto balas Gorilas
     impactoBalasGorilas();
@@ -263,6 +272,17 @@ window.onload = function () {
 
   function generaAleatorio(min, max){
     return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  function pintaScore(){
+    ctx.drawImage(imageScore,0,0,scoreWidth,scoreHeight);
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle ="white";
+    ctx.fillText("Player 1",200,30);
+    ctx.fillText("Score:",110,57);
+    ctx.fillText("Bullets:",110,82);
+    ctx.fillText(monkeyHero.puntos,200,57);
+    ctx.fillText(monkeyHero.balas,200,82);
   }
 
   startGame();

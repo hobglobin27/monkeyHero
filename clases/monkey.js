@@ -45,6 +45,7 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
     case this.ataque1Derecha:
       for(let i=0; i<arrayRutaAtaque1Derecha.length;i++){
         this.arrayImagesAtaque1Derecha.push(new Image());
+        this.arrayImagesAtaque1Derecha[i].src=arrayRutaAtaque1Derecha[i];
         this.arrayImagesAtaque1Derecha[i].onload = function(){
           console.log("Imagen ataque1 derecha" + i + " cargada");
         }.bind(this);
@@ -53,6 +54,7 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
     case this.ataque1Izquierda:
       for(let i=0; i<arrayRutaAtaque1Izquierda.length;i++){
         this.arrayImagesAtaque1Izquierda.push(new Image());
+        this.arrayImagesAtaque1Izquierda[i].src=arrayRutaAtaque1Izquierda[i];
         this.arrayImagesAtaque1Izquierda[i].onload = function(){
           console.log("Imagen ataque1 izquierda " + i + " cargada");
         }.bind(this);
@@ -61,6 +63,7 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
     case this.ataquePowDerecha:
       for(let i=0; i<arrayRutaAtaquePowDerecha.length;i++){
         this.arrayImagesAtaquePowDerecha.push(new Image());
+        this.arrayImagesAtaquePowDerecha[i].src=arrayRutaAtaquePowDerecha[i];
         this.arrayImagesAtaquePowDerecha[i].onload = function(){
           console.log("Imagen ataquePow derecha" + i + " cargada");
         }.bind(this);
@@ -69,6 +72,7 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
     case this.ataquePowIzquierda:
       for(let i=0; i<arrayRutaAtaquePowIzquierda.length;i++){
         this.arrayImagesAtaquePowIzquierda.push(new Image());
+        this.arrayImagesAtaquePowIzquierda[i].src=arrayRutaAtaquePowIzquierda[i];
         this.arrayImagesAtaquePowIzquierda[i].onload = function(){
           console.log("Imagen ataquePow izquierda" + i + " cargada");
         }.bind(this);
@@ -77,6 +81,7 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
     case this.golpeCocosDerecha:
       for(let i=0; i<arrayRutaGolpeCocosDerecha.length;i++){
         this.arrayImagesGolpeCocosDerecha.push(new Image());
+        this.arrayImagesGolpeCocosDerecha[i].src=arrayRutaGolpeCocosDerecha[i];
         this.arrayImagesGolpeCocosDerecha[i].onload = function(){
           console.log("Imagen golpeCocos derecha" + i + " cargada");
         }.bind(this);
@@ -85,6 +90,7 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
     case this.golpeCocosIzquierda:
       for(let i=0; i<arrayRutaGolpeCocosIzquierda.length;i++){
         this.arrayImagesGolpeCocosIzquierda.push(new Image());
+        this.arrayImagesGolpeCocosIzquierda[i].src=arrayRutaGolpeCocosIzquierda[i];
         this.arrayImagesGolpeCocosIzquierda[i].onload = function(){
           console.log("Imagen golpeCocos izquierda" + i + " cargada");
         }.bind(this);

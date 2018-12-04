@@ -15,6 +15,7 @@ function MonkeyHero(posicionX, posicionY, width, height, velocidadX, velocidadY)
   this.posicionInicialSalto=posicionY;
   this.saltoArriba=true;
   this.saltando=false;
+  this.disparando=false;
   //Banderas
   this.mueveDerecha=true;
   //Disparos

@@ -3,6 +3,8 @@ window.onload = function () {
   monkeyHero.cargaImagen(monkeyHero.monoCaminandoIzquierda);
   monkeyHero.cargaImagen(monkeyHero.saltoDerecha);
   monkeyHero.cargaImagen(monkeyHero.saltoIzquierda);
+  monkeyHero.cargaImagen(monkeyHero.ataque1Derecha);
+  monkeyHero.cargaImagen(monkeyHero.ataque1Izquierda);
 
   function update(){
     frames++;
@@ -12,21 +14,24 @@ window.onload = function () {
 
 //////////////////////////Funcionalidad MonkeyHera/////////////////////////
     //Mueve Heroe
-    if(monkeyHero.mueveDerecha && !monkeyHero.saltando){
+    if(monkeyHero.mueveDerecha && !monkeyHero.saltando && !monkeyHero.disparando){
       monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoDerecha[monkeyHero.contSecMovLeftRight]);
     }
     else
-      if(!monkeyHero.saltando){
+      if(!monkeyHero.saltando && !monkeyHero.disparando){
         monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoIzquierda[monkeyHero.contSecMovLeftRight]);
       }
 
     //Salto Heroe
-    if(monkeyHero.saltando)
+    if(monkeyHero.saltando){
       if(monkeyHero.mueveDerecha)
         monkeyHero.draw(monkeyHero.arrayImagesSaltoDerecha[monkeyHero.contSecMovLeftRight]);
       else {
         monkeyHero.draw(monkeyHero.arrayImagesSaltoIzquierda[monkeyHero.contSecMovLeftRight]);
       }
+      monkeyHero.disparando=false
+    }
+
     if(frames%2===0){
       if(monkeyHero.saltando){
         if(frames%14===0)
@@ -38,6 +43,28 @@ window.onload = function () {
     }
 
     //Disparos Heroe
+    if(monkeyHero.disparando && !monkeyHero.saltando)
+      if(monkeyHero.mueveDerecha)
+        monkeyHero.draw(monkeyHero.arrayImagesAtaque1Derecha[monkeyHero.contSecMovLeftRight]);
+      else {
+        monkeyHero.draw(monkeyHero.arrayImagesAtaque1Izquierda[monkeyHero.contSecMovLeftRight]);
+      }
+
+    if(monkeyHero.disparando && !monkeyHero.saltando){
+      monkeyHero.width=80;
+      monkeyHero.height=80;
+      monkeyHero.y=540;
+      if(frames%8===0)
+        monkeyHero.contSecMovLeftRight++;
+      if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesAtaque1Derecha.length){
+        monkeyHero.contSecMovLeftRight=0;
+        monkeyHero.disparando=false;
+        monkeyHero.width=60;
+        monkeyHero.height=60;
+        monkeyHero.y=560;
+      }
+    }
+
     for(let i=0; i<monkeyHero.arregloBalas.length;i++){
       if(monkeyHero.arregloBalas[i]!=null){
         if(monkeyHero.arregloBalas[i].mueveDerecha)

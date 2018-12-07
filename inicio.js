@@ -1,3 +1,5 @@
+$(document).ready(function(){
+
 document.getElementById("start").onmouseover = function() {
     document.getElementById("start").src="./images/Fondos/startSubrayado.png";
 };
@@ -21,3 +23,21 @@ document.getElementById("bestPlayers").onmouseover = function() {
 document.getElementById("bestPlayers").onmouseout = function() {
     document.getElementById("bestPlayers").src="./images/Fondos/bestPlayers.png";
 };
+
+var promise = document.getElementById("audioIntro").play();
+
+if (promise !== undefined) {
+  promise.then(_ => {
+    document.getElementById("audioIntro").loop=true;
+    console.log("Inicia audio Intro");
+  }).catch(error => {
+    console.log("Error cargando archivo de audio Intro");
+  });
+}
+
+
+
+
+
+
+});

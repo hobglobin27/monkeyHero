@@ -92,10 +92,12 @@ window.onload = function () {
         if(i%2===0){
           arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas1Derecha);
+          document.getElementById("audioGorila").play();
         }
         else {
           arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas2Izquierda);
+          document.getElementById("audioGorila").play();
         }
       }
     }
@@ -126,11 +128,13 @@ window.onload = function () {
           arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloLoros[arregloLoros.length-1].cargaImagen(1);
           arregloLoros[arregloLoros.length-1].mueveDerecha=true;
+          document.getElementById("audioPajaro").play();
         }
         else {
           arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
           arregloLoros[arregloLoros.length-1].cargaImagen(2);
           arregloLoros[arregloLoros.length-1].mueveDerecha=false;
+          document.getElementById("audioPajaro").play();
         }
       }
     }

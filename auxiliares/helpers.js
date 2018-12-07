@@ -25,6 +25,7 @@ function impactoBalasGorilas(){
         monkeyHero.puntos+=arregloGorilas[j].puntos;
         arregloGorilas[j]=null;
         monkeyHero.arregloBalas[i]=null;
+        document.getElementById("audioImpacto").play();
       }
     }
   }
@@ -37,6 +38,7 @@ function impactoBalasLoros(){
         monkeyHero.puntos+=arregloLoros[j].puntos;
         arregloLoros[j]=null;
         monkeyHero.arregloBalas[i]=null;
+        document.getElementById("audioImpacto").play();
       }
     }
   }
@@ -49,6 +51,7 @@ function recogeFruta(){
       if(arregloFrutas[i].tipoFruta===3)
         monkeyHero.balas+=arregloFrutas[i].balasIfPlatanos;
       arregloFrutas[i]=null;
+      document.getElementById("audioFruta").play();
     }
   }
 }

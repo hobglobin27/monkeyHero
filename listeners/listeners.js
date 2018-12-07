@@ -1,4 +1,3 @@
-
 addEventListener('keydown', function(e){
   switch(e.keyCode){
     case 37:
@@ -13,6 +12,11 @@ addEventListener('keydown', function(e){
       for(let i=0;i<arregloGorilas.length; i++)
         if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
           arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+      for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+        if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
+          if(monkeyHero.arregloBalas[i].mueveDerecha)
+            monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
 
       //Acerca cuando camina izquierda
       for(let i=0;i<arregloLoros.length; i++)
@@ -43,6 +47,11 @@ addEventListener('keydown', function(e){
         if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
           arregloGorilas[i].x-=monkeyHero.velocidadX;
 
+      for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+        if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
+          if(!monkeyHero.arregloBalas[i].mueveDerecha)
+            monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
+
       //Acerca cuando camina derecha
       for(let i=0;i<arregloLoros.length; i++)
         if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
@@ -61,6 +70,7 @@ addEventListener('keydown', function(e){
     case 83:
     case 115:
       monkeyHero.disparaBalas(balasWidth, balasHeight, balasVelocidad, monkeyHero.mueveDerecha);
+      document.getElementById("audioDisparo").play()
       monkeyHero.disparando=true;
       if(!monkeyHero.saltando)
         monkeyHero.contSecMovLeftRight=0;

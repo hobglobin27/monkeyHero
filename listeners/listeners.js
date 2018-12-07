@@ -74,4 +74,4 @@ addEventListener('keydown', function(e){
       }
     break;
   }
-})
+});

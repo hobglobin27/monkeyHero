@@ -4,11 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./Style/style.css" media="screen" />
   <title>Monkey Hero</title>
 </head>
 <body>
-  <canvas id='monkey' width='1270' height='650'>
+  <div id="principal">
+    <div class="distribuye">
+      <img id="start" src="./images/Fondos/start.png" alt=""></span>
+      <img id="instructions" src="./images/Fondos/instructions.png" alt="">
+      <img id="bestPlayers" src="./images/Fondos/bestPlayers.png" alt="">
+    </div>
+  </div>
 
+  <canvas id='monkey' width='1270' height='650'>
   </canvas>
 
   <script src="./clases/board.js"></script>
@@ -23,7 +31,6 @@
   <script src="./declare/declare.js"></script>
   <script src="./listeners/listeners.js"></script>
   <script src="./flujos/flujoMonkey.js"></script>
-
-
+  <script src="inicio.js"></script>
 </body>
 </html>

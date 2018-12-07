@@ -1,0 +1,42 @@
+#principal{
+  background-image: url("../images/Fondos/inicio.png");
+  display: block;
+  width: 100%;
+  height: 650px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#monkey{
+  display: none;
+}
+
+#start{
+  width: 15%;
+  height: 30px;
+  margin-top: 450px;
+  padding-bottom: 10px;
+  padding-left: 120px;
+}
+
+#instructions{
+  width: 20%;
+  height: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 120px;
+}
+
+#bestPlayers{
+  width: 20%;
+  height: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 120px;
+}
+
+.distribuye{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

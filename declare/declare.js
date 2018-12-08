@@ -16,10 +16,13 @@ let readyWidth=500;
 let readyHeight=500;
 let gameOverWidth=500;
 let gameOverHeight=500;
+let maxTimeImpacto=32;
 let imageScore= new Image();
 let imageReady= new Image();
 let imageGameOver= new Image();
 let imageEnter = new Image();
+let imageImpacto1 = new Image();
+let imageImpacto2 = new Image();
 
 //Arreglos ruta imagenes
 let arrayRutaAtaque1Derecha=["./images/Ataque1Derecha/ataque1.png",
@@ -58,7 +61,8 @@ let arrayRutaFrutas=["./images/Frutas/limon.png",
                         "./images/Frutas/pinia.png",
                         "./images/Frutas/platanos.png",
                         "./images/Frutas/sandia.png",
-                        "./images/Frutas/uvas.png"];
+                        "./images/Frutas/uvas.png",
+                        "./images/Frutas/coco.png"];
 
 let arrayRutaGolpeCocosDerecha=["./images/GolpeCocosDerecha/cocos1.png",
                                 "./images/GolpeCocosDerecha/cocos2.png",
@@ -149,8 +153,9 @@ let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth,
 let interval, frames = 0;
 let arregloGorilas = [];
 let arregloFrutas = [];
-let arregloLoros=[];
-let numeroEnemigos=0;
-let numeroFrutas=0;
-let tipoFruta=0;
-let tamañoFruta=0;
+let arregloLoros = [];
+let impacto2 = [];
+let numeroEnemigos = 0;
+let numeroFrutas = 0;
+let tipoFruta = 0;
+let tamañoFruta = 0;

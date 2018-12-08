@@ -21,6 +21,10 @@ function impactoBalasGorilas(){
     for(let j=0; j<arregloGorilas.length; j++){
       if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
         monkeyHero.puntos+=arregloGorilas[j].puntos;
+        impacto2.push(new Object);
+        impacto2[impacto2.length-1].posX=arregloGorilas[j].x;
+        impacto2[impacto2.length-1].posY=arregloGorilas[j].y;
+        impacto2[impacto2.length-1].time=0;
         arregloGorilas[j]=null;
         monkeyHero.arregloBalas[i]=null;
         document.getElementById("audioImpacto").play();
@@ -79,6 +83,253 @@ function pintaGameOver(){
   document.getElementById("audioGameOver").play();
 }
 
+function pintaImpactos(){
+  for(let i=0;i<impacto2.length;i++){
+    if(impacto2[i]!=null){
+      ctx.drawImage(imageImpacto2,impacto2[i].posX,impacto2[i].posY,90,90);
+      impacto2[i].time++;
+      if(impacto2[i].time>maxTimeImpacto)
+        impacto2[i]=null;
+    }
+  }
+}
+
+function cargaImagenes(){
+  monkeyHero.cargaImagen(monkeyHero.monoCaminandoDerecha);
+  monkeyHero.cargaImagen(monkeyHero.monoCaminandoIzquierda);
+  monkeyHero.cargaImagen(monkeyHero.saltoDerecha);
+  monkeyHero.cargaImagen(monkeyHero.saltoIzquierda);
+  monkeyHero.cargaImagen(monkeyHero.ataque1Derecha);
+  monkeyHero.cargaImagen(monkeyHero.ataque1Izquierda);
+
+  imageScore.src="./images/Score/score.png";
+  imageScore.onload=function(){
+    console.log("Carga Imagen Score");
+  };
+
+  imageReady.src="./images/Fondos/ready.png";
+  imageReady.onload=function(){
+    console.log("Carga Imagen Ready");
+  };
+
+  imageGameOver.src="./images/Fondos/gameOver.png";
+  imageGameOver.onload=function(){
+    console.log("Carga Imagen Game Over");
+  };
+
+  imageEnter.src="./images/Fondos/enter.png";
+  imageEnter.onload=function(){
+    console.log("Carga Imagen Enter");
+  };
+
+  imageImpacto1.src="./images/Impactos/impacto1.png";
+  imageImpacto1.onload=function(){
+    console.log("Carga Imagen Impacto1");
+  };
+
+  imageImpacto2.src="./images/Impactos/impacto2.png";
+  imageImpacto2.onload=function(){
+    console.log("Carga Imagen Impacto2");
+  };
+}
+
+function iniciaJuego(){
+  interval, frames = 0;
+  arregloGorilas = [];
+  arregloFrutas = [];
+  arregloLoros = [];
+  impacto2 = [];
+  numeroEnemigos = 0;
+  numeroFrutas = 0;
+  tipoFruta = 0;
+  tamañoFruta = 0;
+  monkeyHero.iniciaMonkey(monkeyHeroPosX,monkeyHeroPosY);
+}
+
+function mueveHeroe(){
+  if(monkeyHero.mueveDerecha && !monkeyHero.saltando && !monkeyHero.disparando){
+    monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoDerecha[monkeyHero.contSecMovLeftRight]);
+  }
+  else
+    if(!monkeyHero.saltando && !monkeyHero.disparando){
+      monkeyHero.draw(monkeyHero.arrayImagesMonoCaminandoIzquierda[monkeyHero.contSecMovLeftRight]);
+    }
+}
+
+function saltoHeroe(){
+  if(monkeyHero.saltando){
+    if(monkeyHero.mueveDerecha)
+      monkeyHero.draw(monkeyHero.arrayImagesSaltoDerecha[monkeyHero.contSecMovLeftRight]);
+    else {
+      monkeyHero.draw(monkeyHero.arrayImagesSaltoIzquierda[monkeyHero.contSecMovLeftRight]);
+    }
+    monkeyHero.disparando=false
+  }
+
+  if(frames%2===0){
+    if(monkeyHero.saltando){
+      if(frames%14===0)
+        monkeyHero.contSecMovLeftRight++;
+      if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesSaltoDerecha.length)
+        monkeyHero.contSecMovLeftRight=monkeyHero.arrayImagesSaltoDerecha.length-1;
+      monkeyHero.jump(monkeyHero.posicionInicialSalto);
+    }
+  }
+}
+
+function disparaHeroe(){
+  if(monkeyHero.disparando && !monkeyHero.saltando)
+    if(monkeyHero.mueveDerecha)
+      monkeyHero.draw(monkeyHero.arrayImagesAtaque1Derecha[monkeyHero.contSecMovLeftRight]);
+    else {
+      monkeyHero.draw(monkeyHero.arrayImagesAtaque1Izquierda[monkeyHero.contSecMovLeftRight]);
+    }
+
+  if(monkeyHero.disparando && !monkeyHero.saltando){
+    monkeyHero.width=80;
+    monkeyHero.height=80;
+    monkeyHero.y=540;
+    if(frames%8===0)
+      monkeyHero.contSecMovLeftRight++;
+    if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesAtaque1Derecha.length){
+      monkeyHero.contSecMovLeftRight=0;
+      monkeyHero.disparando=false;
+      monkeyHero.y=560;
+    }
+  }
+
+  if(!monkeyHero.disparando){
+    monkeyHero.width=60;
+    monkeyHero.height=60;
+  }
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+    if(monkeyHero.arregloBalas[i]!=null){
+      if(monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].moveRight();
+      else
+        monkeyHero.arregloBalas[i].moveLeft();
+      monkeyHero.arregloBalas[i].draw();
+    }
+  }
+}
+
+function creaGorilas(){
+  if(frames%480 === 0 || frames ===200){
+    numeroEnemigos=generaAleatorio(1,5);
+    for(let i=0; i<numeroEnemigos; i++){
+      if(i%2===0){
+        arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas1Derecha);
+        document.getElementById("audioGorila").play();
+      }
+      else {
+        arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas2Izquierda);
+        document.getElementById("audioGorila").play();
+      }
+    }
+  }
+}
+
+function mueveGorilas(){
+  for(let i=0; i<arregloGorilas.length; i++){
+    if(arregloGorilas[i]!=null){
+      if(arregloGorilas[i] instanceof GorilaIzq){
+        if(frames%8===0)
+          arregloGorilas[i].moveLeft();
+        arregloGorilas[i].draw(arregloGorilas[i].arrayImagesGorilas2Izquierda[arregloGorilas[i].contSecMovLeftRight]);
+      }
+      if(arregloGorilas[i] instanceof GorilaDer){
+        if(frames%12===0)
+          arregloGorilas[i].moveRight();
+        arregloGorilas[i].draw(arregloGorilas[i].arrayImagesGorilas1Derecha[arregloGorilas[i].contSecMovLeftRight]);
+      }
+    }
+  }
+}
+
+function creaLoros(){
+  if(frames%1000 === 0 || frames ===100){
+    numeroEnemigos=generaAleatorio(1,5);
+    for(let i=0; i<numeroEnemigos; i++){
+      if(i%2===0){
+        arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloLoros[arregloLoros.length-1].cargaImagen(1);
+        arregloLoros[arregloLoros.length-1].mueveDerecha=true;
+        document.getElementById("audioPajaro").play();
+      }
+      else {
+        arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloLoros[arregloLoros.length-1].cargaImagen(2);
+        arregloLoros[arregloLoros.length-1].mueveDerecha=false;
+        document.getElementById("audioPajaro").play();
+      }
+    }
+  }
+}
+
+function mueveLoros(){
+  for(let i=0; i<arregloLoros.length; i++){
+    if(arregloLoros[i]!=null){
+      if(!arregloLoros[i].mueveDerecha){
+        if(frames%8===0)
+          arregloLoros[i].moveLeft();
+        arregloLoros[i].draw(arregloLoros[i].arrayImagesLoros[arregloLoros[i].contSecMovLeftRight]);
+      }
+      if(arregloLoros[i].mueveDerecha){
+        if(frames%8===0)
+          arregloLoros[i].moveRight();
+        arregloLoros[i].draw(arregloLoros[i].arrayImagesLoros[arregloLoros[i].contSecMovLeftRight]);
+      }
+    }
+  }
+}
+
+function creaFrutas(){
+  if(frames%1000 === 0){
+    numeroFrutas=generaAleatorio(1,5);
+    for(let i=0; i<numeroFrutas; i++){
+      tipoFruta=generaAleatorio(0,7);
+      switch(tipoFruta){
+        case 0:
+          tamañoFruta=30;
+        break;
+        case 1:
+          tamañoFruta=40;
+        break;
+        case 2:
+          tamañoFruta=50;
+        break;
+        case 3:
+          tamañoFruta=50;
+        break;
+        case 4:
+          tamañoFruta=55;
+        break;
+        case 5:
+          tamañoFruta=50;
+        break;
+        case 6:
+          tamañoFruta=45;
+        break;
+      }
+      arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
+      arregloFrutas[arregloFrutas.length-1].cargaImagen(tipoFruta);
+      arregloFrutas[arregloFrutas.length-1].tipoFruta=tipoFruta;
+    }
+  }
+}
+
+function mueveFrutas(){
+  for(let i=0; i<arregloFrutas.length; i++){
+    if(arregloFrutas[i]!=null){
+      if(frames%12===0)
+        arregloFrutas[i].moveDown();
+      arregloFrutas[i].draw();
+    }
+  }
+}
 document.getElementById("instructions").onclick = function() {
   document.getElementById("principal").style.display="none";
   document.getElementById("instructionsScreen").style.display="block";

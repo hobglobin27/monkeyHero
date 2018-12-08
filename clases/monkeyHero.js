@@ -88,9 +88,33 @@ MonkeyHero.prototype.disparaBalas=function(width, height, velocidad, mueveDerech
       this.arregloBalas.push(new Balas(this.x-this.width/2, this.y, width, height, velocidad, mueveDerecha))
     this.balas--;
   }
+}
 
 //Manejo vidas
 MonkeyHero.prototype.agregaVida = function(){
   this.vidas++;
 }
+
+//InitMonkey
+MonkeyHero.prototype.iniciaMonkey = function(posicionX,posicionY){
+  this.siCamina=true;
+  this.siSalta=false;
+  this.siDispara=false;
+  this.siDisparaPow=false;
+  this.siResucitando=false;
+  this.posicionInicialSalto=posicionY;
+  //Control heroe
+  this.vidas=3;
+  this.balas=30;
+  this.puntos=0;
+  this.contSecMovLeftRight=0;
+  this.saltoArriba=true;
+  this.saltando=false;
+  this.disparando=false;
+  //Banderas
+  this.mueveDerecha=true;
+  //Disparos
+  this.arregloBalas=[];
+  this.x=posicionX;
+  this.y=posicionY;
 }

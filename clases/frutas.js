@@ -14,6 +14,7 @@ function Frutas(posicionX, posicionY, width, height, velocidadY){
   this.platanos=3;
   this.sandia=4;
   this.uvas=5;
+  this.coco=6;
   this.balasIfPlatanos=50;
 
   //Imagen fruta
@@ -63,6 +64,13 @@ Frutas.prototype.cargaImagen=function(fruta){
       this.img.src=arrayRutaFrutas[this.uvas];
       this.img.onload = function(){
         console.log("Imagen Fruta uvas cargada");
+      }.bind(this);
+    break;
+    case this.coco:
+      this.puntosFruta=0;
+      this.img.src=arrayRutaFrutas[this.coco];
+      this.img.onload = function(){
+        console.log("Imagen Fruta coco cargada");
       }.bind(this);
     break;
   }

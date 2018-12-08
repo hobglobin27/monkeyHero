@@ -44,3 +44,29 @@
 .audio{
   display: none;
 }
+
+#instructionsScreen{
+  background-image: url("../images/Fondos/inicio.png");
+  display: block;
+  width: 100%;
+  height: 650px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+#screenInstructions{
+  width: 50%;
+  height: 400px;
+  margin-top: 150px;
+  padding-bottom: 10px;
+  padding-left: 120px;
+}
+
+#back{
+  width: 15%;
+  height: 25px;
+  margin-top: 40px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}

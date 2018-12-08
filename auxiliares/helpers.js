@@ -70,3 +70,21 @@ function pintaScore(){
   ctx.fillText(monkeyHero.puntos,200,57);
   ctx.fillText(monkeyHero.balas,200,82);
 }
+
+document.getElementById("instructions").onclick = function() {
+  document.getElementById("principal").style.display="none";
+  document.getElementById("instructionsScreen").style.display="block";
+  document.getElementById("audioIntro").src="";
+  document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
+  document.getElementById("audioIntro").play();
+  document.getElementById("audioIntro").loop="true";
+}
+
+document.getElementById("back").onclick = function() {
+  document.getElementById("principal").style.display="block";
+  document.getElementById("instructionsScreen").style.display="none";
+  document.getElementById("audioIntro").src="";
+  document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
+  document.getElementById("audioIntro").play();
+  document.getElementById("audioIntro").loop="true";
+}

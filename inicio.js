@@ -23,13 +23,14 @@ $(document).ready(function(){
       document.getElementById("bestPlayers").src="./images/Fondos/bestPlayers.png";
   };
 
-  let promise = document.getElementById("audioIntro").play();
-  if (promise !== undefined){
-    promise.then(() => {
-      promise.loop=true;
-      console.log("Inicia audio Intro");
-    }).catch(error => {
-      console.log("Error cargando archivo de audio Intro");
-    });
-  }
+  document.getElementById("back").onmouseover = function() {
+      document.getElementById("back").src="./images/Fondos/backSubrayado.png";
+  };
+
+  document.getElementById("back").onmouseout = function() {
+      document.getElementById("back").src="./images/Fondos/back.png";
+  };
+
+  document.getElementById("audioIntro").play();
+  document.getElementById("audioIntro").loop="true";
 });

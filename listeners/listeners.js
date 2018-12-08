@@ -82,6 +82,7 @@ addEventListener('keydown', function(e){
         monkeyHero.contSecMovLeftRight=0;
         monkeyHero.jump(monkeyHero.posicionInicialSalto);
       }
+      document.getElementById("audioSalto").play();
     break;
   }
 });

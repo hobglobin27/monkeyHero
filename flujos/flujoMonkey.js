@@ -222,7 +222,10 @@ window.onload = function () {
   document.getElementById("start").onclick = function() {
     document.getElementById("principal").style.display="none";
     document.getElementById("monkey").style.display="block";
+    document.getElementById("audioIntro").src="";
+    document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
+    document.getElementById("audioIntro").play();
+    document.getElementById("audioIntro").loop="true";
     startGame();
   }
-
 }

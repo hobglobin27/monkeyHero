@@ -84,5 +84,13 @@ addEventListener('keydown', function(e){
       }
       document.getElementById("audioSalto").play();
     break;
+    case 13:
+      document.getElementById("principal").style.display="block";
+      document.getElementById("monkey").style.display="none";
+      document.getElementById("audioIntro").src="";
+      document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
+      document.getElementById("audioIntro").play();
+      document.getElementById("audioIntro").loop="true";
+    break;
   }
 });

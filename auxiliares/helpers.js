@@ -3,8 +3,7 @@ function gameOver() {
     if(arregloGorilas[i]!=null && monkeyHero.dead(arregloGorilas[i])){
       clearInterval(interval)
       interval = 0
-      ctx.font = "30px Arial";
-      ctx.fillText("Game Over",10,50);
+      pintaGameOver();
     }
   }
 
@@ -12,8 +11,7 @@ function gameOver() {
     if(arregloLoros[i]!=null && monkeyHero.dead(arregloLoros[i])){
       clearInterval(interval)
       interval = 0
-      ctx.font = "30px Arial";
-      ctx.fillText("Game Over",10,50);
+      pintaGameOver();
     }
   }
 }
@@ -69,6 +67,16 @@ function pintaScore(){
   ctx.fillText("Bullets:",110,82);
   ctx.fillText(monkeyHero.puntos,200,57);
   ctx.fillText(monkeyHero.balas,200,82);
+}
+
+function pintaReady(){
+    ctx.drawImage(imageReady,450,0,readyWidth,readyHeight);
+}
+
+function pintaGameOver(){
+  ctx.drawImage(imageGameOver,400,0,gameOverWidth,gameOverHeight);
+  ctx.drawImage(imageEnter,350,450,400,100);
+  document.getElementById("audioGameOver").play();
 }
 
 document.getElementById("instructions").onclick = function() {

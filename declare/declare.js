@@ -12,7 +12,14 @@ let balasHeight=40;
 let balasVelocidad=3;
 let scoreWidth=300;
 let scoreHeight=100;
+let readyWidth=500;
+let readyHeight=500;
+let gameOverWidth=500;
+let gameOverHeight=500;
 let imageScore= new Image();
+let imageReady= new Image();
+let imageGameOver= new Image();
+let imageEnter = new Image();
 
 //Arreglos ruta imagenes
 let arrayRutaAtaque1Derecha=["./images/Ataque1Derecha/ataque1.png",

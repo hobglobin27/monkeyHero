@@ -12,27 +12,27 @@
 }
 
 #start{
-  width: 15%;
+  width: 18%;
   height: 25px;
   margin-top: 450px;
   padding-bottom: 10px;
-  padding-left: 120px;
+  padding-left: 280px;
 }
 
 #instructions{
-  width: 18%;
+  width: 21%;
   height: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 120px;
+  padding-left: 280px;
 }
 
 #bestPlayers{
-  width: 18%;
+  width: 21%;
   height: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 120px;
+  padding-left: 280px;
 }
 
 .distribuye{

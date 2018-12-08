@@ -10,6 +10,21 @@ window.onload = function () {
     console.log("Carga Imagen Score");
   };
 
+  imageReady.src="./images/Fondos/ready.png";
+  imageReady.onload=function(){
+    console.log("Carga Imagen Score");
+  };
+
+  imageGameOver.src="./images/Fondos/gameOver.png";
+  imageGameOver.onload=function(){
+    console.log("Carga Imagen Score");
+  };
+
+  imageEnter.src="./images/Fondos/enter.png";
+  imageEnter.onload=function(){
+    console.log("Carga Imagen Score");
+  };
+
   function update(){
     frames++;
 
@@ -209,6 +224,9 @@ window.onload = function () {
     //Valida recoge Frutas
     recogeFruta();
 
+    if(frames>=0 && frames <=128){
+      pintaReady();
+    }
 /////////////////////////////////////Valida fin juego/////////////////////////////
 
     gameOver();
@@ -226,6 +244,7 @@ window.onload = function () {
     document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
     document.getElementById("audioIntro").play();
     document.getElementById("audioIntro").loop="true";
+    document.getElementById("audioFight").play();
     startGame();
   }
 }

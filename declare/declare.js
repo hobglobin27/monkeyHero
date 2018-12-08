@@ -147,4 +147,3 @@ let numeroEnemigos=0;
 let numeroFrutas=0;
 let tipoFruta=0;
 let tamañoFruta=0;
-let promise = document.getElementById("audioIntro").play();

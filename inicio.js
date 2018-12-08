@@ -22,7 +22,8 @@ $(document).ready(function(){
   document.getElementById("bestPlayers").onmouseout = function() {
       document.getElementById("bestPlayers").src="./images/Fondos/bestPlayers.png";
   };
-  
+
+  let promise = document.getElementById("audioIntro").play();
   if (promise !== undefined){
     promise.then(() => {
       promise.loop=true;

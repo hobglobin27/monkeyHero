@@ -7,6 +7,12 @@ window.onload = function () {
     board.draw()
 //////////////////////////Funcionalidad MonkeyHero/////////////////////////
     //Mueve Heroe
+    if(keyPressedRight)
+      moveIfRight();
+
+    if(keyPressedLeft)
+        moveIfLeft();
+
     mueveHeroe();
 
     //Salto Heroe

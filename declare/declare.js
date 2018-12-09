@@ -3,8 +3,8 @@ let ctx = canvas.getContext('2d')
 
 let monkeyHeroWidth=60;
 let monkeyHeroHeight=60;
-let monkeyHeroVelX=10;
-let monkeyHeroVelY=10;
+let monkeyHeroVelX=3.5;
+let monkeyHeroVelY=8;
 let monkeyHeroPosX=600;
 let monkeyHeroPosY=560;
 let balasWidth=40;
@@ -113,6 +113,9 @@ let arrayRutaMonoCaminandoIzquierda=["./images/MonoCaminandoIzquierda/mono1.png"
 let arrayRutaSaltoDerecha=["./images/SaltoDerecha/salto1.png",
                             "./images/SaltoDerecha/salto2.png",
                             "./images/SaltoDerecha/salto3.png",
+                            "./images/SaltoDerecha/salto3.png",
+                            "./images/SaltoDerecha/salto4.png",
+                            "./images/SaltoDerecha/salto5.png",
                             "./images/SaltoDerecha/salto4.png",
                             "./images/SaltoDerecha/salto5.png",
                             "./images/SaltoDerecha/salto4.png",
@@ -122,6 +125,9 @@ let arrayRutaSaltoDerecha=["./images/SaltoDerecha/salto1.png",
 let arrayRutaSaltoIzquierda=["./images/SaltoIzquierda/salto1.png",
                               "./images/SaltoIzquierda/salto2.png",
                               "./images/SaltoIzquierda/salto3.png",
+                              "./images/SaltoIzquierda/salto3.png",
+                              "./images/SaltoIzquierda/salto4.png",
+                              "./images/SaltoIzquierda/salto5.png",
                               "./images/SaltoIzquierda/salto4.png",
                               "./images/SaltoIzquierda/salto5.png",
                               "./images/SaltoIzquierda/salto4.png",
@@ -159,3 +165,5 @@ let numeroEnemigos = 0;
 let numeroFrutas = 0;
 let tipoFruta = 0;
 let tamañoFruta = 0;
+let keyPressedLeft=false;
+let keyPressedRight=false;

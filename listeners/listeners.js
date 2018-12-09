@@ -1,71 +1,10 @@
 addEventListener('keydown', function(e){
   switch(e.keyCode){
     case 37:
-      monkeyHero.moveLeft();
-      board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
-
-      //Aleja cuando camina izquierda
-      for(let i=0;i<arregloLoros.length; i++)
-        if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
-          arregloLoros[i].x+=monkeyHero.velocidadX;
-
-      for(let i=0;i<arregloGorilas.length; i++)
-        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
-          arregloGorilas[i].x+=monkeyHero.velocidadX;
-
-      for(let i=0; i<monkeyHero.arregloBalas.length;i++)
-        if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
-          if(monkeyHero.arregloBalas[i].mueveDerecha)
-            monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
-
-      //Acerca cuando camina izquierda
-      for(let i=0;i<arregloLoros.length; i++)
-        if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
-          arregloLoros[i].x+=monkeyHero.velocidadX;
-
-      for(let i=0;i<arregloGorilas.length; i++)
-        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
-          arregloGorilas[i].x+=monkeyHero.velocidadX;
-
-      for(let i=0;i<arregloFrutas.length; i++)
-        if(arregloFrutas[i]!==null)
-          arregloFrutas[i].x+=monkeyHero.velocidadX;
-
-
-      console.log('left',  monkeyHero);
+      keyPressedLeft=true;
     break;
     case 39:
-      monkeyHero.moveRight();
-      board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
-
-      //Aleja cuando camina derecha
-      for(let i=0;i<arregloLoros.length; i++)
-        if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
-          arregloLoros[i].x-=monkeyHero.velocidadX;
-
-      for(let i=0;i<arregloGorilas.length; i++)
-        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
-          arregloGorilas[i].x-=monkeyHero.velocidadX;
-
-      for(let i=0; i<monkeyHero.arregloBalas.length;i++)
-        if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
-          if(!monkeyHero.arregloBalas[i].mueveDerecha)
-            monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
-
-      //Acerca cuando camina derecha
-      for(let i=0;i<arregloLoros.length; i++)
-        if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
-          arregloLoros[i].x-=monkeyHero.velocidadX;
-
-      for(let i=0;i<arregloGorilas.length; i++)
-        if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
-          arregloGorilas[i].x-=monkeyHero.velocidadX;
-
-      for(let i=0;i<arregloFrutas.length; i++)
-        if(arregloFrutas[i]!==null)
-          arregloFrutas[i].x-=monkeyHero.velocidadX;
-
-      console.log('right', monkeyHero);
+      keyPressedRight=true;      
     break;
     case 83:
     case 115:
@@ -91,6 +30,17 @@ addEventListener('keydown', function(e){
       document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
       document.getElementById("audioIntro").play();
       document.getElementById("audioIntro").loop="true";
+    break;
+  }
+});
+
+addEventListener('keyup', function(e){
+  switch (e.keyCode){
+    case 37:
+      keyPressedLeft=false;
+    break;
+    case 39:
+    keyPressedRight=false;
     break;
   }
 });

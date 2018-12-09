@@ -12,11 +12,6 @@ function Board() {
   }.bind(this)
 }
 
-/*Board.prototype.move=function(){
-  this.x--;
-  if(this.x < -canvas.width) this.x = 0;
-}*/
-
 Board.prototype.move=function(mueveDerecha, velocidadX){
   if(mueveDerecha){
     this.x-=velocidadX;
@@ -27,13 +22,6 @@ Board.prototype.move=function(mueveDerecha, velocidadX){
     if(this.x > canvas.width) this.x = 0;
   }
 }
-
-
-/*Board.prototype.draw=function(){
-  this.move();
-  ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  ctx.drawImage(this.img, this.x + this.width, this.y, this.width, this.height);
-}*/
 
 Board.prototype.draw=function(){
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);

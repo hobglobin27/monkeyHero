@@ -144,6 +144,8 @@ function iniciaJuego(){
   tipoFruta = 0;
   tamañoFruta = 0;
   monkeyHero.iniciaMonkey(monkeyHeroPosX,monkeyHeroPosY);
+  keyPressedLeft=false;
+  keyPressedRight=false;
 }
 
 function mueveHeroe(){
@@ -166,9 +168,9 @@ function saltoHeroe(){
     monkeyHero.disparando=false
   }
 
-  if(frames%2===0){
+  if(frames%1===0){
     if(monkeyHero.saltando){
-      if(frames%14===0)
+      if(frames%5===0)
         monkeyHero.contSecMovLeftRight++;
       if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesSaltoDerecha.length)
         monkeyHero.contSecMovLeftRight=monkeyHero.arrayImagesSaltoDerecha.length-1;
@@ -189,7 +191,7 @@ function disparaHeroe(){
     monkeyHero.width=80;
     monkeyHero.height=80;
     monkeyHero.y=540;
-    if(frames%8===0)
+    if(frames%4===0)
       monkeyHero.contSecMovLeftRight++;
     if(monkeyHero.contSecMovLeftRight===monkeyHero.arrayImagesAtaque1Derecha.length){
       monkeyHero.contSecMovLeftRight=0;
@@ -330,6 +332,83 @@ function mueveFrutas(){
     }
   }
 }
+
+function moveIfLeft(){
+  monkeyHero.moveLeft();
+  board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
+
+  //Aleja cuando camina izquierda
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
+      arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
+      if(monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
+
+  //Acerca cuando camina izquierda
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
+      arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloFrutas.length; i++)
+    if(arregloFrutas[i]!==null)
+      arregloFrutas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<impacto2.length; i++)
+    if(impacto2[i]!==null)
+      impacto2[i].x-=monkeyHero.velocidadX;
+
+  console.log('left',  monkeyHero);
+}
+
+function moveIfRight(){
+  monkeyHero.moveRight();
+  board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
+
+  //Aleja cuando camina derecha
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
+      arregloGorilas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
+      if(!monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
+
+  //Acerca cuando camina derecha
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
+      arregloGorilas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloFrutas.length; i++)
+    if(arregloFrutas[i]!==null)
+      arregloFrutas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<impacto2.length; i++)
+    if(impacto2[i]!==null)
+      impacto2[i].x+=monkeyHero.velocidadX;
+
+  console.log('right', monkeyHero);
+}
+
 document.getElementById("instructions").onclick = function() {
   document.getElementById("principal").style.display="none";
   document.getElementById("instructionsScreen").style.display="block";

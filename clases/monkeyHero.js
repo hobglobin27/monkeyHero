@@ -27,7 +27,7 @@ MonkeyHero.prototype.constructor=MonkeyHero;
 
 //Ejecuta movimientos
 MonkeyHero.prototype.moveLeft=function(){
-  if(!this.saltando){
+  if(!this.saltando && frames%3===0){
     this.contSecMovLeftRight++;
     if(this.x>200)
       this.x-=this.velocidadX;
@@ -35,14 +35,16 @@ MonkeyHero.prototype.moveLeft=function(){
       this.contSecMovLeftRight=0;
   }
   else {
-    this.x-=this.velocidadX*1.4;
+    if(this.x>200)
+      if(this.saltando && monkeyHero.y !== monkeyHero.posicionInicialSalto)
+        this.x-=this.velocidadX*1;
   }
   this.mueveDerecha=false;
 
 }
 
 MonkeyHero.prototype.moveRight=function(){
-  if(!this.saltando){
+  if(!this.saltando && frames%3===0){
     this.contSecMovLeftRight++;
     if(this.x<970)
       this.x+=this.velocidadX;
@@ -50,7 +52,9 @@ MonkeyHero.prototype.moveRight=function(){
       this.contSecMovLeftRight=0;
   }
   else {
-    this.x+=this.velocidadX*1.4;
+    if(this.x<970)
+      if(this.saltando && monkeyHero.y !== monkeyHero.posicionInicialSalto)
+        this.x+=this.velocidadX*1;
   }
   this.mueveDerecha=true;
 

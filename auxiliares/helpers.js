@@ -14,6 +14,16 @@ function gameOver() {
       pintaGameOver();
     }
   }
+
+  if(cocosTime){
+    for(let i=0; i<arregloFrutas.length; i++){
+      if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
+        clearInterval(interval)
+        interval = 0
+        pintaGameOver();
+      }
+    }
+  }
 }
 
 function impactoBalasGorilas(){
@@ -81,6 +91,10 @@ function pintaScore(){
 
 function pintaReady(){
     ctx.drawImage(imageReady,450,0,readyWidth,readyHeight);
+}
+
+function pintaCocos(){
+    ctx.drawImage(imageCocos,450,0,readyWidth,readyHeight);
 }
 
 function pintaGameOver(){
@@ -152,6 +166,11 @@ function cargaImagenes(){
   imageImpacto2.onload=function(){
     console.log("Carga Imagen Impacto2");
   };
+
+  imageCocos.src="./images/Fondos/cocos.png";
+  imageCocos.onload=function(){
+    console.log("Carga Imagen Coconuts");
+  };
 }
 
 function iniciaJuego(){
@@ -167,6 +186,20 @@ function iniciaJuego(){
   monkeyHero.iniciaMonkey(monkeyHeroPosX,monkeyHeroPosY);
   keyPressedLeft=false;
   keyPressedRight=false;
+  cocosTime=false;
+}
+
+function iniciaCocosTime(){
+  arregloGorilas = [];
+  arregloFrutas = [];
+  arregloLoros = [];
+  arregloImpactos = [];
+  numeroEnemigos = 0;
+  numeroFrutas = 0;
+  tipoFruta = 0;
+  tamañoFruta = 0;
+  frames=1;
+  controlCocosTime=1;
 }
 
 function mueveHeroe(){
@@ -310,10 +343,19 @@ function mueveLoros(){
 }
 
 function creaFrutas(){
-  if(frames%1000 === 0){
-    numeroFrutas=generaAleatorio(1,5);
+  let interFrutas=1000;
+  if(cocosTime)
+    interFrutas=200;
+  if(frames%interFrutas === 0){
+    if(!cocosTime)
+      numeroFrutas=generaAleatorio(1,5);
+    else
+      numeroFrutas=generaAleatorio(4,8);
     for(let i=0; i<numeroFrutas; i++){
-      tipoFruta=generaAleatorio(0,7);
+      if(cocosTime)
+        tipoFruta=6;
+      else
+        tipoFruta=generaAleatorio(0,6);
       switch(tipoFruta){
         case 0:
           tamañoFruta=30;
@@ -337,7 +379,10 @@ function creaFrutas(){
           tamañoFruta=45;
         break;
       }
-      arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
+      if(!cocosTime)
+        arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
+        if(cocosTime)
+          arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(15,20)));
       arregloFrutas[arregloFrutas.length-1].cargaImagen(tipoFruta);
       arregloFrutas[arregloFrutas.length-1].tipoFruta=tipoFruta;
     }
@@ -346,8 +391,11 @@ function creaFrutas(){
 
 function mueveFrutas(){
   for(let i=0; i<arregloFrutas.length; i++){
+    let interFrutas=12;
+    if(cocosTime)
+      interFrutas=8;
     if(arregloFrutas[i]!=null){
-      if(frames%12===0)
+      if(frames%interFrutas===0)
         arregloFrutas[i].moveDown();
       arregloFrutas[i].draw();
     }

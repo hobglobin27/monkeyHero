@@ -23,6 +23,7 @@ let imageGameOver= new Image();
 let imageEnter = new Image();
 let imageImpacto1 = new Image();
 let imageImpacto2 = new Image();
+let imageCocos= new Image();
 
 //Arreglos ruta imagenes
 let arrayRutaAtaque1Derecha=["./images/Ataque1Derecha/ataque1.png",
@@ -166,7 +167,7 @@ let arrayRutaTrampa=["./images/Trampa/trampa.png"];
 
 let board = new Board();
 let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth, monkeyHeroHeight, monkeyHeroVelX, monkeyHeroVelY);
-let interval, frames = 0;
+let interval, frames = 1;
 let arregloGorilas = [];
 let arregloFrutas = [];
 let arregloLoros = [];
@@ -179,3 +180,5 @@ let keyPressedLeft=false;
 let keyPressedRight=false;
 let tipoGorila="G";
 let tipoPajaro="P";
+let cocosTime=false;
+let controlCocosTime=1;

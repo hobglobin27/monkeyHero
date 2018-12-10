@@ -6,14 +6,9 @@ window.onload = function () {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     board.draw();
 
-    if(!cocosTime  && frames%3200===0){
-      if(controlCocosTime%2===0){
-        cocosTime=true;
-        iniciaCocosTime();
-      }
-      else {
-        controlCocosTime++;
-      }
+    if(!cocosTime  && puntosCocosTime>200){
+      cocosTime=true;
+      iniciaCocosTime();
     }
 
     if(cocosTime){
@@ -114,7 +109,7 @@ window.onload = function () {
       pintaImpactos();
 
       //////////////////////////////Pinta Ready////////////////////////////////////
-      if(frames>=0 && frames <=128){
+      if(frames>=0 && frames <=128 && !controlEntroCocos){
         pintaReady();
       }
   /////////////////////////////////////Valida fin juego/////////////////////////////

@@ -31,6 +31,7 @@ function impactoBalasGorilas(){
     for(let j=0; j<arregloGorilas.length; j++){
       if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
         monkeyHero.puntos+=arregloGorilas[j].puntos;
+        puntosCocosTime+=arregloGorilas[j].puntos;
         arregloImpactos.push(new Object);
         arregloImpactos[arregloImpactos.length-1].posX=arregloGorilas[j].x;
         arregloImpactos[arregloImpactos.length-1].posY=arregloGorilas[j].y;
@@ -49,6 +50,7 @@ function impactoBalasLoros(){
     for(let j=0; j<arregloLoros.length; j++){
       if(arregloLoros[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloLoros[j].deadBala(monkeyHero.arregloBalas[i])){
         monkeyHero.puntos+=arregloLoros[j].puntos;
+        puntosCocosTime+=arregloLoros[j].puntos;
         arregloImpactos.push(new Object);
         arregloImpactos[arregloImpactos.length-1].posX=arregloLoros[j].x;
         arregloImpactos[arregloImpactos.length-1].posY=arregloLoros[j].y;
@@ -66,6 +68,7 @@ function recogeFruta(){
   for(let i=0; i<arregloFrutas.length; i++){
     if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
       monkeyHero.puntos+=arregloFrutas[i].puntosFruta;
+      puntosCocosTime+=arregloFrutas[i].puntosFruta;
       if(arregloFrutas[i].tipoFruta===3)
         monkeyHero.balas+=arregloFrutas[i].balasIfPlatanos;
       arregloFrutas[i]=null;
@@ -187,6 +190,8 @@ function iniciaJuego(){
   keyPressedLeft=false;
   keyPressedRight=false;
   cocosTime=false;
+  puntosCocosTime=0;
+  controlEntroCocos=false;
 }
 
 function iniciaCocosTime(){
@@ -199,7 +204,8 @@ function iniciaCocosTime(){
   tipoFruta = 0;
   tamañoFruta = 0;
   frames=1;
-  controlCocosTime=1;
+  puntosCocosTime=0;
+  controlEntroCocos=true;
 }
 
 function mueveHeroe(){
@@ -345,12 +351,12 @@ function mueveLoros(){
 function creaFrutas(){
   let interFrutas=1000;
   if(cocosTime)
-    interFrutas=200;
+    interFrutas=50;
   if(frames%interFrutas === 0){
     if(!cocosTime)
       numeroFrutas=generaAleatorio(1,5);
     else
-      numeroFrutas=generaAleatorio(4,8);
+      numeroFrutas=generaAleatorio(4,9);
     for(let i=0; i<numeroFrutas; i++){
       if(cocosTime)
         tipoFruta=6;
@@ -381,8 +387,8 @@ function creaFrutas(){
       }
       if(!cocosTime)
         arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
-        if(cocosTime)
-          arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(15,20)));
+      if(cocosTime)
+        arregloFrutas.push(new Frutas(generaAleatorio(-200,1470),0,tamañoFruta,tamañoFruta,generaAleatorio(10,20)));
       arregloFrutas[arregloFrutas.length-1].cargaImagen(tipoFruta);
       arregloFrutas[arregloFrutas.length-1].tipoFruta=tipoFruta;
     }
@@ -393,7 +399,7 @@ function mueveFrutas(){
   for(let i=0; i<arregloFrutas.length; i++){
     let interFrutas=12;
     if(cocosTime)
-      interFrutas=8;
+      interFrutas=2;
     if(arregloFrutas[i]!=null){
       if(frames%interFrutas===0)
         arregloFrutas[i].moveDown();

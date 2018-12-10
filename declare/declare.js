@@ -181,4 +181,5 @@ let keyPressedRight=false;
 let tipoGorila="G";
 let tipoPajaro="P";
 let cocosTime=false;
-let controlCocosTime=1;
+let puntosCocosTime=0;
+let controlEntroCocos=false;

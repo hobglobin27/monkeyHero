@@ -27,7 +27,7 @@ MonkeyHero.prototype.constructor=MonkeyHero;
 
 //Ejecuta movimientos
 MonkeyHero.prototype.moveLeft=function(){
-  if(!this.saltando && frames%3===0){
+  if(!this.saltando && frames%4===0){
     this.contSecMovLeftRight++;
     if(this.x>200)
       this.x-=this.velocidadX;
@@ -44,7 +44,7 @@ MonkeyHero.prototype.moveLeft=function(){
 }
 
 MonkeyHero.prototype.moveRight=function(){
-  if(!this.saltando && frames%3===0){
+  if(!this.saltando && frames%4===0){
     this.contSecMovLeftRight++;
     if(this.x<970)
       this.x+=this.velocidadX;

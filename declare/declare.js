@@ -4,7 +4,7 @@ let ctx = canvas.getContext('2d')
 let monkeyHeroWidth=60;
 let monkeyHeroHeight=60;
 let monkeyHeroVelX=3.5;
-let monkeyHeroVelY=8;
+let monkeyHeroVelY=6;
 let monkeyHeroPosX=600;
 let monkeyHeroPosY=560;
 let balasWidth=40;
@@ -114,6 +114,11 @@ let arrayRutaSaltoDerecha=["./images/SaltoDerecha/salto1.png",
                             "./images/SaltoDerecha/salto2.png",
                             "./images/SaltoDerecha/salto3.png",
                             "./images/SaltoDerecha/salto3.png",
+                            "./images/SaltoDerecha/salto3.png",
+                            "./images/SaltoDerecha/salto4.png",
+                            "./images/SaltoDerecha/salto5.png",
+                            "./images/SaltoDerecha/salto4.png",
+                            "./images/SaltoDerecha/salto5.png",
                             "./images/SaltoDerecha/salto4.png",
                             "./images/SaltoDerecha/salto5.png",
                             "./images/SaltoDerecha/salto4.png",
@@ -126,6 +131,11 @@ let arrayRutaSaltoIzquierda=["./images/SaltoIzquierda/salto1.png",
                               "./images/SaltoIzquierda/salto2.png",
                               "./images/SaltoIzquierda/salto3.png",
                               "./images/SaltoIzquierda/salto3.png",
+                              "./images/SaltoIzquierda/salto3.png",
+                              "./images/SaltoIzquierda/salto4.png",
+                              "./images/SaltoIzquierda/salto5.png",
+                              "./images/SaltoIzquierda/salto4.png",
+                              "./images/SaltoIzquierda/salto5.png",
                               "./images/SaltoIzquierda/salto4.png",
                               "./images/SaltoIzquierda/salto5.png",
                               "./images/SaltoIzquierda/salto4.png",
@@ -160,10 +170,12 @@ let interval, frames = 0;
 let arregloGorilas = [];
 let arregloFrutas = [];
 let arregloLoros = [];
-let impacto2 = [];
+let arregloImpactos = [];
 let numeroEnemigos = 0;
 let numeroFrutas = 0;
 let tipoFruta = 0;
 let tamañoFruta = 0;
 let keyPressedLeft=false;
 let keyPressedRight=false;
+let tipoGorila="G";
+let tipoPajaro="P";

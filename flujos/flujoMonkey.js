@@ -6,7 +6,7 @@ window.onload = function () {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     board.draw();
 
-    if(!cocosTime  && puntosCocosTime>200){
+    if(!cocosTime  && puntosCocosTime>200 && !controlEntroCocos){
       cocosTime=true;
       iniciaCocosTime();
     }

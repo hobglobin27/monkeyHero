@@ -97,7 +97,7 @@ function pintaReady(){
 }
 
 function pintaCocos(){
-    ctx.drawImage(imageCocos,450,0,readyWidth,readyHeight);
+    ctx.drawImage(imageCocos,420,0,readyWidth,readyHeight);
 }
 
 function pintaGameOver(){

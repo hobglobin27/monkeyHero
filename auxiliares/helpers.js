@@ -109,18 +109,6 @@ function pintaGameOver(){
 function pintaImpactos(){
   for(let i=0;i<arregloImpactos.length;i++){
     if(arregloImpactos[i]!=null){
-      for(let i=0;i<arregloImpactos.length; i++){
-        if(arregloImpactos[i]!==null && arregloImpactos[i].posX<monkeyHero.x && keyPressedLeft)
-          arregloImpactos[i].posX+=monkeyHero.velocidadX;
-        if(arregloImpactos[i]!==null && arregloImpactos[i].posX>monkeyHero.x && keyPressedLeft)
-          arregloImpactos[i].posX+=monkeyHero.velocidadX;
-      }
-      for(let i=0;i<arregloImpactos.length; i++){
-        if(arregloImpactos[i]!==null && arregloImpactos[i].posX>monkeyHero.x && keyPressedRight)
-          arregloImpactos[i].posX-=monkeyHero.velocidadX;
-        if(arregloImpactos[i]!==null && arregloImpactos[i].posX<monkeyHero.x && keyPressedRight)
-          arregloImpactos[i].posX-=monkeyHero.velocidadX;
-      }
       if(arregloImpactos[i].tipo === tipoGorila)
         ctx.drawImage(imageImpacto2,arregloImpactos[i].posX,arregloImpactos[i].posY,90,90);
       else
@@ -196,9 +184,9 @@ function iniciaJuego(){
 
 function iniciaCocosTime(){
   arregloGorilas = [];
-  arregloFrutas = [];
   arregloLoros = [];
   arregloImpactos = [];
+  arregloFrutas=[];
   numeroEnemigos = 0;
   numeroFrutas = 0;
   tipoFruta = 0;
@@ -278,15 +266,15 @@ function disparaHeroe(){
 
 function creaGorilas(){
   if(frames%480 === 0 || frames ===200){
-    numeroEnemigos=generaAleatorio(1,5);
+    numeroEnemigos=generaAleatorio(2,6);
     for(let i=0; i<numeroEnemigos; i++){
       if(i%2===0){
-        arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloGorilas.push(new GorilaDer(generaAleatorio(80,180)*-1,500,120,120,generaAleatorio(5,12),generaAleatorio(2,7)));
         arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas1Derecha);
         document.getElementById("audioGorila").play();
       }
       else {
-        arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloGorilas.push(new GorilaIzq(generaAleatorio(1200,1300),500,120,120,generaAleatorio(5,12),generaAleatorio(2,7)));
         arregloGorilas[arregloGorilas.length-1].cargaImagen(arregloGorilas[arregloGorilas.length-1].gorilas2Izquierda);
         document.getElementById("audioGorila").play();
       }
@@ -313,16 +301,16 @@ function mueveGorilas(){
 
 function creaLoros(){
   if(frames%1000 === 0 || frames ===100){
-    numeroEnemigos=generaAleatorio(1,5);
+    numeroEnemigos=generaAleatorio(2,6);
     for(let i=0; i<numeroEnemigos; i++){
       if(i%2===0){
-        arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloLoros.push(new Loros(generaAleatorio(80,180)*-1,generaAleatorio(300,450),50,50,generaAleatorio(5,12),generaAleatorio(2,7)));
         arregloLoros[arregloLoros.length-1].cargaImagen(1);
         arregloLoros[arregloLoros.length-1].mueveDerecha=true;
         document.getElementById("audioPajaro").play();
       }
       else {
-        arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,450),50,50,generaAleatorio(2,12),generaAleatorio(2,7)));
+        arregloLoros.push(new Loros(generaAleatorio(1200,1300),generaAleatorio(300,450),50,50,generaAleatorio(5,12),generaAleatorio(2,7)));
         arregloLoros[arregloLoros.length-1].cargaImagen(2);
         arregloLoros[arregloLoros.length-1].mueveDerecha=false;
         document.getElementById("audioPajaro").play();
@@ -386,7 +374,7 @@ function creaFrutas(){
         break;
       }
       if(!cocosTime)
-        arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(2,15)));
+        arregloFrutas.push(new Frutas(generaAleatorio(200,1000),0,tamañoFruta,tamañoFruta,generaAleatorio(5,15)));
       if(cocosTime)
         arregloFrutas.push(new Frutas(generaAleatorio(-200,1470),0,tamañoFruta,tamañoFruta,generaAleatorio(10,20)));
       arregloFrutas[arregloFrutas.length-1].cargaImagen(tipoFruta);
@@ -435,9 +423,19 @@ function moveIfLeft(){
     if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
       arregloGorilas[i].x+=monkeyHero.velocidadX;
 
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
+      if(!monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
+
   for(let i=0;i<arregloFrutas.length; i++)
     if(arregloFrutas[i]!==null)
       arregloFrutas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloImpactos.length; i++)
+    if(arregloImpactos[i]!==null)
+      arregloImpactos[i].posX+=monkeyHero.velocidadX;
+
 
   console.log('left',  monkeyHero);
 }
@@ -469,9 +467,18 @@ function moveIfRight(){
     if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
       arregloGorilas[i].x-=monkeyHero.velocidadX;
 
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
+      if(monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
+
   for(let i=0;i<arregloFrutas.length; i++)
     if(arregloFrutas[i]!==null)
       arregloFrutas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloImpactos.length; i++)
+    if(arregloImpactos[i]!==null)
+      arregloImpactos[i].posX-=monkeyHero.velocidadX;
 
   console.log('right', monkeyHero);
 }

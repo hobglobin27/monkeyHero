@@ -50,7 +50,7 @@ window.onload = function () {
       /////////////////////////////////////Valida fin juego/////////////////////////////
       gameOver();
 
-      if(frames%3200===0){
+      if(frames%2000===0){
         cocosTime=false;
         iniciaCocosTime();
       }

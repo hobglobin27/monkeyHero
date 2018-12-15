@@ -55,7 +55,7 @@ function pintaHealth(){
   ctx.fillText("Gorilla Grodd",1110,30);
   ctx.fillText("Health:",1085,57);
   ctx.fillText(gorilaChief.porcentajeHealth,1175,57);
-  ctx.fillText("%",1205,57);
+  ctx.fillText("%",1210,57);
 }
 
 function pintaReady(){

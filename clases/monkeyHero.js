@@ -9,7 +9,7 @@ function MonkeyHero(posicionX, posicionY, width, height, velocidadX, velocidadY)
   this.siResucitando=false;
   //Control heroe
   this.vidas=3;
-  this.balas=30;
+  this.balas=50;
   this.puntos=0;
   this.contSecMovLeftRight=0;
   this.posicionInicialSalto=posicionY;
@@ -109,7 +109,7 @@ MonkeyHero.prototype.iniciaMonkey = function(posicionX,posicionY){
   this.posicionInicialSalto=posicionY;
   //Control heroe
   this.vidas=3;
-  this.balas=30;
+  this.balas=50;
   this.puntos=0;
   this.contSecMovLeftRight=0;
   this.saltoArriba=true;

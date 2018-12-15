@@ -1,7 +1,8 @@
+/////////////////////Generales//////////////////////////////////////////////////
 function gameOver() {
   for(let i=0; i<arregloGorilas.length; i++){
     if(arregloGorilas[i]!=null && monkeyHero.dead(arregloGorilas[i])){
-      clearInterval(interval)
+      clearInterval(interval);
       interval = 0
       pintaGameOver();
     }
@@ -9,70 +10,25 @@ function gameOver() {
 
   for(let i=0; i<arregloLoros.length; i++){
     if(arregloLoros[i]!=null && monkeyHero.dead(arregloLoros[i])){
-      clearInterval(interval)
+      clearInterval(interval);
       interval = 0
       pintaGameOver();
     }
   }
 
-  if(cocosTime){
+  if(gorilaChief!=null && monkeyHero.dead(gorilaChief)){
+    clearInterval(interval);
+    interval = 0
+    pintaGameOver();
+  }
+
+  if(cocosTime || controlEntroCocos){
     for(let i=0; i<arregloFrutas.length; i++){
       if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
-        clearInterval(interval)
+        clearInterval(interval);
         interval = 0
         pintaGameOver();
       }
-    }
-  }
-}
-
-function impactoBalasGorilas(){
-  for(let i=0; i<monkeyHero.arregloBalas.length;i++){
-    for(let j=0; j<arregloGorilas.length; j++){
-      if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
-        monkeyHero.puntos+=arregloGorilas[j].puntos;
-        puntosCocosTime+=arregloGorilas[j].puntos;
-        arregloImpactos.push(new Object);
-        arregloImpactos[arregloImpactos.length-1].posX=arregloGorilas[j].x;
-        arregloImpactos[arregloImpactos.length-1].posY=arregloGorilas[j].y;
-        arregloImpactos[arregloImpactos.length-1].time=0;
-        arregloImpactos[arregloImpactos.length-1].tipo=tipoGorila;
-        arregloGorilas[j]=null;
-        monkeyHero.arregloBalas[i]=null;
-        document.getElementById("audioImpacto").play();
-      }
-    }
-  }
-}
-
-function impactoBalasLoros(){
-  for(let i=0; i<monkeyHero.arregloBalas.length;i++){
-    for(let j=0; j<arregloLoros.length; j++){
-      if(arregloLoros[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloLoros[j].deadBala(monkeyHero.arregloBalas[i])){
-        monkeyHero.puntos+=arregloLoros[j].puntos;
-        puntosCocosTime+=arregloLoros[j].puntos;
-        arregloImpactos.push(new Object);
-        arregloImpactos[arregloImpactos.length-1].posX=arregloLoros[j].x;
-        arregloImpactos[arregloImpactos.length-1].posY=arregloLoros[j].y;
-        arregloImpactos[arregloImpactos.length-1].time=0;
-        arregloImpactos[arregloImpactos.length-1].tipo=tipoPajaro;
-        arregloLoros[j]=null;
-        monkeyHero.arregloBalas[i]=null;
-        document.getElementById("audioImpacto").play();
-      }
-    }
-  }
-}
-
-function recogeFruta(){
-  for(let i=0; i<arregloFrutas.length; i++){
-    if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
-      monkeyHero.puntos+=arregloFrutas[i].puntosFruta;
-      puntosCocosTime+=arregloFrutas[i].puntosFruta;
-      if(arregloFrutas[i].tipoFruta===3)
-        monkeyHero.balas+=arregloFrutas[i].balasIfPlatanos;
-      arregloFrutas[i]=null;
-      document.getElementById("audioFruta").play();
     }
   }
 }
@@ -85,19 +41,24 @@ function pintaScore(){
   ctx.drawImage(imageScore,0,0,scoreWidth,scoreHeight);
   ctx.font = "bold 20px Arial";
   ctx.fillStyle ="white";
-  ctx.fillText("Player 1",200,30);
+  ctx.fillText("Cornelius",175,30);
   ctx.fillText("Score:",110,57);
   ctx.fillText("Bullets:",110,82);
   ctx.fillText(monkeyHero.puntos,200,57);
   ctx.fillText(monkeyHero.balas,200,82);
 }
 
-function pintaReady(){
-    ctx.drawImage(imageReady,450,0,readyWidth,readyHeight);
+function pintaHealth(){
+  ctx.drawImage(imageScoreChief,970,0,scoreWidth,scoreHeight);
+  ctx.font = "bold 20px Arial";
+  ctx.fillStyle ="white";
+  ctx.fillText("Gorilla Grodd",1110,30);
+  ctx.fillText("Health:",1085,57);
+  ctx.fillText(gorilaChief.health,1175,57);
 }
 
-function pintaCocos(){
-    ctx.drawImage(imageCocos,420,0,readyWidth,readyHeight);
+function pintaReady(){
+    ctx.drawImage(imageReady,450,0,readyWidth,readyHeight);
 }
 
 function pintaGameOver(){
@@ -133,6 +94,11 @@ function cargaImagenes(){
     console.log("Carga Imagen Score");
   };
 
+  imageScoreChief.src="./images/Score/scoreChief.png";
+  imageScoreChief.onload=function(){
+    console.log("Carga Imagen Score Chief");
+  };
+
   imageReady.src="./images/Fondos/ready.png";
   imageReady.onload=function(){
     console.log("Carga Imagen Ready");
@@ -162,6 +128,16 @@ function cargaImagenes(){
   imageCocos.onload=function(){
     console.log("Carga Imagen Coconuts");
   };
+
+  imageWar.src="./images/Fondos/thisWar.png";
+  imageWar.onload=function(){
+    console.log("Carga Imagen WAR");
+  };
+
+  imageLevel.src="./images/Fondos/levelComplete.png";
+  imageLevel.onload=function(){
+    console.log("Carga Imagen Level");
+  };
 }
 
 function iniciaJuego(){
@@ -180,6 +156,8 @@ function iniciaJuego(){
   cocosTime=false;
   puntosCocosTime=0;
   controlEntroCocos=false;
+  if(gorilaChief!=null)
+    gorilaChief=null;
 }
 
 function iniciaCocosTime(){
@@ -194,6 +172,134 @@ function iniciaCocosTime(){
   frames=1;
   puntosCocosTime=0;
   controlEntroCocos=true;
+}
+
+function pintaCocos(){
+  ctx.drawImage(imageCocos,420,0,readyWidth,readyHeight);
+}
+
+function pintaWar(){
+  ctx.drawImage(imageWar,400,0,warWidth,warHeight);
+}
+
+function pintaLevelComplete(){
+  ctx.drawImage(imageLevel,380,0,levelWidth,levelHeight);
+}
+
+document.getElementById("instructions").onclick = function() {
+  document.getElementById("principal").style.display="none";
+  document.getElementById("instructionsScreen").style.display="block";
+  document.getElementById("audioIntro").src="";
+  document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
+  document.getElementById("audioIntro").play();
+  document.getElementById("audioIntro").loop="true";
+}
+
+document.getElementById("back").onclick = function() {
+  document.getElementById("principal").style.display="block";
+  document.getElementById("instructionsScreen").style.display="none";
+  document.getElementById("audioIntro").src="";
+  document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
+  document.getElementById("audioIntro").play();
+  document.getElementById("audioIntro").loop="true";
+}
+////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////Movimientos Heroe//////////////////////////////////
+function moveIfLeft(){
+  monkeyHero.moveLeft();
+  board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
+
+  //Aleja cuando camina izquierda
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
+      arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
+      if(monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
+
+  //Acerca cuando camina izquierda
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
+      arregloGorilas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
+      if(!monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloFrutas.length; i++)
+    if(arregloFrutas[i]!==null)
+      arregloFrutas[i].x+=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloImpactos.length; i++)
+    if(arregloImpactos[i]!==null)
+      arregloImpactos[i].posX+=monkeyHero.velocidadX;
+
+  if(gorilaChief!==null){
+    gorilaChief.x+=monkeyHero.velocidadX;
+    golpeaPisoPosXIni+=monkeyHero.velocidadX;
+  }
+
+  console.log('left',  monkeyHero);
+}
+
+function moveIfRight(){
+  monkeyHero.moveRight();
+  board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
+
+  //Aleja cuando camina derecha
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
+      arregloGorilas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
+      if(!monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
+
+  //Acerca cuando camina derecha
+  for(let i=0;i<arregloLoros.length; i++)
+    if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
+      arregloLoros[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloGorilas.length; i++)
+    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
+      arregloGorilas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
+    if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
+      if(monkeyHero.arregloBalas[i].mueveDerecha)
+        monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloFrutas.length; i++)
+    if(arregloFrutas[i]!==null)
+      arregloFrutas[i].x-=monkeyHero.velocidadX;
+
+  for(let i=0;i<arregloImpactos.length; i++)
+    if(arregloImpactos[i]!==null)
+      arregloImpactos[i].posX-=monkeyHero.velocidadX;
+
+  if(gorilaChief!==null){
+    gorilaChief.x-=monkeyHero.velocidadX;
+    golpeaPisoPosXIni-=monkeyHero.velocidadX;
+  }
+
+  console.log('right', monkeyHero);
 }
 
 function mueveHeroe(){
@@ -263,7 +369,9 @@ function disparaHeroe(){
     }
   }
 }
+////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////Movimientos Gorilas///////////////////////////////////
 function creaGorilas(){
   if(frames%480 === 0 || frames ===200){
     numeroEnemigos=generaAleatorio(2,6);
@@ -299,6 +407,27 @@ function mueveGorilas(){
   }
 }
 
+function impactoBalasGorilas(){
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+    for(let j=0; j<arregloGorilas.length; j++){
+      if(arregloGorilas[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloGorilas[j].deadBala(monkeyHero.arregloBalas[i])){
+        monkeyHero.puntos+=arregloGorilas[j].puntos;
+        puntosCocosTime+=arregloGorilas[j].puntos;
+        arregloImpactos.push(new Object);
+        arregloImpactos[arregloImpactos.length-1].posX=arregloGorilas[j].x;
+        arregloImpactos[arregloImpactos.length-1].posY=arregloGorilas[j].y;
+        arregloImpactos[arregloImpactos.length-1].time=0;
+        arregloImpactos[arregloImpactos.length-1].tipo=tipoGorila;
+        arregloGorilas[j]=null;
+        monkeyHero.arregloBalas[i]=null;
+        document.getElementById("audioImpacto").play();
+      }
+    }
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////Movimientos Loros////////////////////////////////////////
 function creaLoros(){
   if(frames%1000 === 0 || frames ===100){
     numeroEnemigos=generaAleatorio(2,6);
@@ -336,6 +465,27 @@ function mueveLoros(){
   }
 }
 
+function impactoBalasLoros(){
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+    for(let j=0; j<arregloLoros.length; j++){
+      if(arregloLoros[j]!=null && monkeyHero.arregloBalas[i]!=null && arregloLoros[j].deadBala(monkeyHero.arregloBalas[i])){
+        monkeyHero.puntos+=arregloLoros[j].puntos;
+        puntosCocosTime+=arregloLoros[j].puntos;
+        arregloImpactos.push(new Object);
+        arregloImpactos[arregloImpactos.length-1].posX=arregloLoros[j].x;
+        arregloImpactos[arregloImpactos.length-1].posY=arregloLoros[j].y;
+        arregloImpactos[arregloImpactos.length-1].time=0;
+        arregloImpactos[arregloImpactos.length-1].tipo=tipoPajaro;
+        arregloLoros[j]=null;
+        monkeyHero.arregloBalas[i]=null;
+        document.getElementById("audioImpacto").play();
+      }
+    }
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////Movimientos Frutas/////////////////////////////////////
 function creaFrutas(){
   let interFrutas=1000;
   if(cocosTime)
@@ -396,107 +546,258 @@ function mueveFrutas(){
   }
 }
 
-function moveIfLeft(){
-  monkeyHero.moveLeft();
-  board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
-
-  //Aleja cuando camina izquierda
-  for(let i=0;i<arregloLoros.length; i++)
-    if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
-      arregloLoros[i].x+=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloGorilas.length; i++)
-    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
-      arregloGorilas[i].x+=monkeyHero.velocidadX;
-
-  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
-    if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
-      if(monkeyHero.arregloBalas[i].mueveDerecha)
-        monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
-
-  //Acerca cuando camina izquierda
-  for(let i=0;i<arregloLoros.length; i++)
-    if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
-      arregloLoros[i].x+=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloGorilas.length; i++)
-    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
-      arregloGorilas[i].x+=monkeyHero.velocidadX;
-
-  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
-    if(monkeyHero.arregloBalas[i]!==null && !monkeyHero.mueveDerecha)
-      if(!monkeyHero.arregloBalas[i].mueveDerecha)
-        monkeyHero.arregloBalas[i].x+=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloFrutas.length; i++)
-    if(arregloFrutas[i]!==null)
-      arregloFrutas[i].x+=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloImpactos.length; i++)
-    if(arregloImpactos[i]!==null)
-      arregloImpactos[i].posX+=monkeyHero.velocidadX;
-
-
-  console.log('left',  monkeyHero);
+function recogeFruta(){
+  for(let i=0; i<arregloFrutas.length; i++){
+    if(arregloFrutas[i]!=null && arregloFrutas[i].frutaTomada(monkeyHero)){
+      monkeyHero.puntos+=arregloFrutas[i].puntosFruta;
+      puntosCocosTime+=arregloFrutas[i].puntosFruta;
+      if(arregloFrutas[i].tipoFruta===3)
+        monkeyHero.balas+=arregloFrutas[i].balasIfPlatanos;
+      arregloFrutas[i]=null;
+      document.getElementById("audioFruta").play();
+    }
+  }
 }
 
-function moveIfRight(){
-  monkeyHero.moveRight();
-  board.move(monkeyHero.mueveDerecha, monkeyHero.velocidadX);
-
-  //Aleja cuando camina derecha
-  for(let i=0;i<arregloLoros.length; i++)
-    if(arregloLoros[i]!==null && arregloLoros[i].mueveDerecha)
-      arregloLoros[i].x-=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloGorilas.length; i++)
-    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaDer)
-      arregloGorilas[i].x-=monkeyHero.velocidadX;
-
-  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
-    if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
-      if(!monkeyHero.arregloBalas[i].mueveDerecha)
-        monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
-
-  //Acerca cuando camina derecha
-  for(let i=0;i<arregloLoros.length; i++)
-    if(arregloLoros[i]!==null && !arregloLoros[i].mueveDerecha)
-      arregloLoros[i].x-=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloGorilas.length; i++)
-    if(arregloGorilas[i]!==null && arregloGorilas[i] instanceof GorilaIzq)
-      arregloGorilas[i].x-=monkeyHero.velocidadX;
-
-  for(let i=0; i<monkeyHero.arregloBalas.length;i++)
-    if(monkeyHero.arregloBalas[i]!==null && monkeyHero.mueveDerecha)
-      if(monkeyHero.arregloBalas[i].mueveDerecha)
-        monkeyHero.arregloBalas[i].x-=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloFrutas.length; i++)
-    if(arregloFrutas[i]!==null)
-      arregloFrutas[i].x-=monkeyHero.velocidadX;
-
-  for(let i=0;i<arregloImpactos.length; i++)
-    if(arregloImpactos[i]!==null)
-      arregloImpactos[i].posX-=monkeyHero.velocidadX;
-
-  console.log('right', monkeyHero);
+function creaCocos(){
+  numeroFrutas=generaAleatorio(8,13);
+  tipoFruta=6;
+  for(let i=0; i<numeroFrutas; i++){
+    tamañoFruta=45;
+    arregloFrutas.push(new Frutas(generaAleatorio(-200,1470),0,tamañoFruta,tamañoFruta,generaAleatorio(10,20)));
+    arregloFrutas[arregloFrutas.length-1].cargaImagen(tipoFruta);
+    arregloFrutas[arregloFrutas.length-1].tipoFruta=tipoFruta;
+  }
 }
 
-document.getElementById("instructions").onclick = function() {
-  document.getElementById("principal").style.display="none";
-  document.getElementById("instructionsScreen").style.display="block";
-  document.getElementById("audioIntro").src="";
-  document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
-  document.getElementById("audioIntro").play();
-  document.getElementById("audioIntro").loop="true";
+function mueveCocos(){
+  for(let i=0; i<arregloFrutas.length; i++){
+    let interFrutas=2;
+    if(arregloFrutas[i]!=null){
+      if(frames%interFrutas===0)
+        arregloFrutas[i].moveDown();
+      arregloFrutas[i].draw();
+    }
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////Movimientos Gorila Chief//////////////////////////////
+function creaGorilaChief(){
+  gorilaChief=new GorilaChief(gorilaChiefPosX, gorilaChiefPosY, gorilaChiefWidth, gorilaChiefHeight, gorilaChiefVelX, gorilaChiefVelY);
+  gorilaChief.cargaImagen(gorilaChief.caminaJefeIzquierda);
+  gorilaChief.cargaImagen(gorilaChief.caminaJefeDerecha);
+  gorilaChief.cargaImagen(gorilaChief.golpeJefeIzquierda);
+  gorilaChief.cargaImagen(gorilaChief.golpeJefeDerecha);
+  gorilaChief.cargaImagen(gorilaChief.golpePisoIzquierda);
+  gorilaChief.cargaImagen(gorilaChief.golpePisoDerecha);
+  gorilaChief.cargaImagen(gorilaChief.golpeJefeIzquierda);
+  gorilaChief.cargaImagen(gorilaChief.golpeJefeDerecha);
 }
 
-document.getElementById("back").onclick = function() {
-  document.getElementById("principal").style.display="block";
-  document.getElementById("instructionsScreen").style.display="none";
-  document.getElementById("audioIntro").src="";
-  document.getElementById("audioIntro").src="./audio/introMonkey.mp3";
-  document.getElementById("audioIntro").play();
-  document.getElementById("audioIntro").loop="true";
+function mueveGorilaChief(){
+  /////////////////////Mueve Izquierda//////////////////////////////////////////
+  if(monkeyHero.x<=gorilaChief.x && gorilaChief.siCamina){
+    gorilaChief.width=gorilaChiefWidth;
+    gorilaChief.height=gorilaChiefHeight;
+    gorilaChief.y=gorilaChiefPosY;
+
+    if(frames%4===0)
+      gorilaChief.moveLeft();
+    golpeaPisoPosXIni=gorilaChief.x;
+    if((gorilaChief.contSecMovLeftRight===0 ||
+      gorilaChief.contSecMovLeftRight===gorilaChief.arrayImagesCaminaJefeIzquierda.length-1) &&
+      frames%8===0)
+      document.getElementById("audioGorila").play();
+    gorilaChief.draw(gorilaChief.arrayImagesCaminaJefeIzquierda[gorilaChief.contSecMovLeftRight]);
+    if(frames%256===0){
+      gorilaChief.siGolpeaPiso=true;
+      gorilaChief.siCamina=false;
+      gorilaChief.contSecMovLeftRight=0;
+      frames++;
+    }
+  }
+
+  if(monkeyHero.x<=gorilaChief.x && gorilaChief.siGolpeaPiso){
+    if(gorilaChief.contSecMovLeftRight===0){
+      gorilaChief.width=154;
+      gorilaChief.height=212;
+      gorilaChief.y=408;
+      golpeaPisoPosXIni=gorilaChief.x
+    }
+
+    if(gorilaChief.contSecMovLeftRight===1){
+      gorilaChief.width=120;
+      gorilaChief.height=202;
+      gorilaChief.y=418;
+      golpeaPisoPosXIni=gorilaChief.x;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===2){
+      gorilaChief.width=206;
+      gorilaChief.height=110;
+      gorilaChief.y=510;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+      if(frames%8)
+        document.getElementById("audioGolpePiso").play();
+    }
+
+    if(gorilaChief.contSecMovLeftRight===3){
+      gorilaChief.width=284;
+      gorilaChief.height=90;
+      gorilaChief.y=530;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===4){
+      gorilaChief.width=338;
+      gorilaChief.height=90;
+      gorilaChief.y=530;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===5){
+      gorilaChief.width=376;
+      gorilaChief.height=116;
+      gorilaChief.y=504;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===6){
+      gorilaChief.width=122;
+      gorilaChief.height=126;
+      gorilaChief.y=494;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    gorilaChief.draw(gorilaChief.arrayImagesGolpePisoIzquierda[gorilaChief.contSecMovLeftRight]);
+    if(frames%8===0)
+      gorilaChief.contSecMovLeftRight++;
+    if(gorilaChief.arrayImagesGolpePisoIzquierda.length === gorilaChief.contSecMovLeftRight){
+      gorilaChief.siGolpeaPiso=false;
+      gorilaChief.siCamina=true;
+      gorilaChief.contSecMovLeftRight=0;
+      frames++;
+      creaCocos();
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////
+
+  ////////////////////////////////Mueve Derecha/////////////////////////////////
+  if(monkeyHero.x>=gorilaChief.x && gorilaChief.siCamina){
+    gorilaChief.width=gorilaChiefWidth;
+    gorilaChief.height=gorilaChiefHeight;
+    gorilaChief.y=gorilaChiefPosY;
+
+    if(frames%4===0)
+      gorilaChief.moveRight();
+    golpeaPisoPosXIni=gorilaChief.x;
+    if((gorilaChief.contSecMovLeftRight===0 ||
+      gorilaChief.contSecMovLeftRight===gorilaChief.arrayImagesCaminaJefeDerecha.length-1) &&
+      frames%8===0)
+      document.getElementById("audioGorila").play();
+    gorilaChief.draw(gorilaChief.arrayImagesCaminaJefeDerecha[gorilaChief.contSecMovLeftRight]);
+    if(frames%256===0){
+      gorilaChief.siGolpeaPiso=true;
+      gorilaChief.siCamina=false;
+      gorilaChief.contSecMovLeftRight=0;
+      frames++;
+    }
+  }
+
+  if(monkeyHero.x>=gorilaChief.x && gorilaChief.siGolpeaPiso){
+    if(gorilaChief.contSecMovLeftRight===0){
+      gorilaChief.width=154;
+      gorilaChief.height=212;
+      gorilaChief.y=408;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===1){
+      gorilaChief.width=120;
+      gorilaChief.height=202;
+      gorilaChief.y=418;
+      golpeaPisoPosXIni=gorilaChief.x;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===2){
+      gorilaChief.width=206;
+      gorilaChief.height=110;
+      gorilaChief.y=510;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===3){
+      gorilaChief.width=284;
+      gorilaChief.height=90;
+      gorilaChief.y=530;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===4){
+      gorilaChief.width=338;
+      gorilaChief.height=90;
+      gorilaChief.y=530;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===5){
+      gorilaChief.width=376;
+      gorilaChief.height=116;
+      gorilaChief.y=504;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    if(gorilaChief.contSecMovLeftRight===6){
+      gorilaChief.width=122;
+      gorilaChief.height=126;
+      gorilaChief.y=494;
+      gorilaChief.x=golpeaPisoPosXIni+120/2;
+      gorilaChief.x-=gorilaChief.width/2;
+    }
+
+    gorilaChief.draw(gorilaChief.arrayImagesGolpePisoDerecha[gorilaChief.contSecMovLeftRight]);
+    if(frames%8===0)
+      gorilaChief.contSecMovLeftRight++;
+    if(gorilaChief.arrayImagesGolpePisoDerecha.length === gorilaChief.contSecMovLeftRight){
+      gorilaChief.siGolpeaPiso=false;
+      gorilaChief.siCamina=true;
+      gorilaChief.contSecMovLeftRight=0;
+      frames++;
+      creaCocos();
+    }
+  }
+}
+
+function impactoBalasGorilaChief(){
+  for(let i=0; i<monkeyHero.arregloBalas.length;i++){
+    if(gorilaChief!=null && monkeyHero.arregloBalas[i]!=null && gorilaChief.deadBala(monkeyHero.arregloBalas[i])){
+      gorilaChief.health--;
+      arregloImpactos.push(new Object);
+      arregloImpactos[arregloImpactos.length-1].posX=golpeaPisoPosXIni-20;
+      if(monkeyHero.x>gorilaChief.x)
+        arregloImpactos[arregloImpactos.length-1].posX=golpeaPisoPosXIni+60;
+      arregloImpactos[arregloImpactos.length-1].posY=620-110;
+      arregloImpactos[arregloImpactos.length-1].time=0;
+      arregloImpactos[arregloImpactos.length-1].tipo=tipoGorila;
+      if(gorilaChief.health<=0){
+        monkeyHero.puntos+=gorilaChief.puntos;
+        pintaHealth();
+        gorilaChief=null;
+        clearInterval(interval);
+        interval = 0
+        pintaLevelComplete();
+      }
+      monkeyHero.arregloBalas[i]=null;
+      document.getElementById("audioImpacto").play();
+    }
+  }
 }

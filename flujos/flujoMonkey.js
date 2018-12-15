@@ -6,19 +6,20 @@ window.onload = function () {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     board.draw();
 
-    if(!cocosTime  && puntosCocosTime>200 && !controlEntroCocos){
+    if(!cocosTime  && puntosCocosTime>=200 && !controlEntroCocos){
       cocosTime=true;
+      document.getElementById("audioGolpePiso").play();
       iniciaCocosTime();
     }
 
     if(cocosTime){
-      //////////////////////////Funcionalidad MonkeyHero/////////////////////////
+      //////////////////////////Funcionalidad MonkeyHero////////////////////////
       //Mueve Heroe
       if(keyPressedRight)
         moveIfRight();
 
       if(keyPressedLeft)
-          moveIfLeft();
+        moveIfLeft();
 
       mueveHeroe();
 
@@ -28,12 +29,12 @@ window.onload = function () {
       //Disparos Heroe
       disparaHeroe();
 
-      ////////////////////////////////Funcionalidad Score//////////////////////////
+      ////////////////////////////////Funcionalidad Score///////////////////////
       //Pinta puntuacion y balas restantes
       pintaScore();
 
+      //////////////////////////////////Funcionalidad Frutas////////////////////
       if(frames>128){
-        //////////////////////////////////Funcionalidad Frutas//////////////////////////
         //Crea Frutas
         creaFrutas();
 
@@ -43,27 +44,26 @@ window.onload = function () {
         //Valida recoge Frutas
         //recogeFruta();
       }
-      //////////////////////////////Pinta Cocos////////////////////////////////////
+
+      //////////////////////////////Pinta Cocos/////////////////////////////////
       if(frames>=0 && frames <=128){
         pintaCocos();
       }
-      /////////////////////////////////////Valida fin juego/////////////////////////////
-      gameOver();
 
       if(frames%2000===0){
         cocosTime=false;
         iniciaCocosTime();
       }
     }
-    else{
 
-  //////////////////////////Funcionalidad MonkeyHero/////////////////////////
+    if(!cocosTime && !controlEntroCocos){
+      //////////////////////////Funcionalidad MonkeyHero////////////////////////
       //Mueve Heroe
       if(keyPressedRight)
         moveIfRight();
 
       if(keyPressedLeft)
-          moveIfLeft();
+        moveIfLeft();
 
       mueveHeroe();
 
@@ -72,19 +72,22 @@ window.onload = function () {
 
       //Disparos Heroe
       disparaHeroe();
-      //////////////////////////////Funcionalidad Gorilas/////////////////////////77
+
+      //////////////////////////////Funcionalidad Gorilas///////////////////////
       //Crea Gorilas
       creaGorilas();
 
       //Mueve gorilas
       mueveGorilas();
-      //////////////////////////////Funcionalidad Loros/////////////////////////77
+
+      //////////////////////////////Funcionalidad Loros/////////////////////////
       //Crea Loros
       creaLoros();
 
       //Mueve loros
       mueveLoros();
-      //////////////////////////////////Funcionalidad Frutas//////////////////////////
+
+      //////////////////////////////////Funcionalidad Frutas////////////////////
       //Crea Frutas
       creaFrutas();
 
@@ -94,11 +97,11 @@ window.onload = function () {
       //Valida recoge Frutas
       recogeFruta();
 
-      ////////////////////////////////Funcionalidad Score//////////////////////////
+      ////////////////////////////////Funcionalidad Score///////////////////////
       //Pinta puntuacion y balas restantes
       pintaScore();
 
-      ///////////////////////////////Funcionalidad Impactos///////////////////////
+      ///////////////////////////////Funcionalidad Impactos/////////////////////
       //Valida impacto balas Gorilas
       impactoBalasGorilas();
 
@@ -108,14 +111,74 @@ window.onload = function () {
       //Pinta Impactos
       pintaImpactos();
 
-      //////////////////////////////Pinta Ready////////////////////////////////////
+      //////////////////////////////Pinta Ready/////////////////////////////////
       if(frames>=0 && frames <=128 && !controlEntroCocos){
         pintaReady();
       }
-  /////////////////////////////////////Valida fin juego/////////////////////////////
-
-      gameOver();
     }
+
+    if(!cocosTime && controlEntroCocos){
+      //////////////////////////////Pinta WAR/////////////////////////////////
+      if(frames>=0 && frames <=128){
+        pintaWar();
+      }
+
+      //////////////////////////Funcionalidad MonkeyHero////////////////////////
+      //Mueve Heroe
+      if(keyPressedRight)
+        moveIfRight();
+
+      if(keyPressedLeft)
+        moveIfLeft();
+
+      mueveHeroe();
+
+      //Salto Heroe
+      saltoHeroe();
+
+      //Disparos Heroe
+      disparaHeroe();
+
+      //////////////////////////////Funcionalidad Gorila Chief//////////////////
+      //Crea GorilaChief
+      if(gorilaChief===null)
+        creaGorilaChief();
+
+      //Mueve gorilas
+      mueveGorilaChief();
+
+      /////////////////////////////Funcionalidad Cocos//////////////////////////
+      mueveCocos();
+
+      //////////////////////////////Funcionalidad Loros/////////////////////////
+      //Crea Loros
+      creaLoros();
+
+      //Mueve loros
+      mueveLoros();
+
+      ///////////////////////////////Funcionalidad Impactos/////////////////////
+      //Valida impacto balas Loros
+      impactoBalasLoros();
+
+      ////////////////////////////////Funcionalidad Score///////////////////////
+      //Pinta puntuacion y balas restantes
+      pintaScore();
+
+      ////////////////////////////////Funcionalidad Health Gorila///////////////
+      //Pinta health Gorila
+      pintaHealth();
+
+      ///////////////////////////////Funcionalidad Impactos/////////////////////
+      //Valida impacto balas Gorilas
+      impactoBalasGorilaChief();
+
+      //Pinta Impactos
+      pintaImpactos();
+
+    }
+    /////////////////////////////////////Valida fin juego///////////////////////
+    gameOver();
   }
 
   function startGame(){

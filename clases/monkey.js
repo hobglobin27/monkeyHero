@@ -13,6 +13,10 @@ function Monkey(posicionX, posicionY, width, height, velocidadX, velocidadY){
   this.gorilas1Derecha="GORILAS1_DERECHA"
   this.monoCaminandoDerecha="MONO_CAMINANDO_DERECHA";
   this.saltoDerecha="SALTO_DERECHA";
+  this.caminaJefeDerecha="CAMINA_JEFE_DERECHA";
+  this.golpeJefeDerecha="GOLPE_JEFE_DERECHA";
+  this.golpePisoDerecha="GOLPE_PISO_DERECHA";
+  this.muereJefeDerecha="MUERE_JEFE_DERECHA";
 
   //Constantes Izquierda
   this.ataque1Izquierda="ATAQUE_IZQUIERDA";
@@ -21,6 +25,10 @@ function Monkey(posicionX, posicionY, width, height, velocidadX, velocidadY){
   this.gorilas2Izquierda="GORILAS2_IZQUIERDA";
   this.monoCaminandoIzquierda="MONO_CAMINANDO_IZQUIERDA";
   this.saltoIzquierda="SALTO_IZQUIERDA";
+  this.caminaJefeIzquierda="CAMINA_JEFE_IZQUIERDA";
+  this.golpeJefeIzquierda="GOLPE_JEFE_IZQUIERDA";
+  this.golpePisoIzquierda="GOLPE_PISO_IZQUIERDA";
+  this.muereJefeIzquierda="MUERE_JEFE_IZQUIERDA";
 
   //Arreglos movimiento Derecha
   this.arrayImagesAtaque1Derecha=[];
@@ -29,6 +37,10 @@ function Monkey(posicionX, posicionY, width, height, velocidadX, velocidadY){
   this.arrayImagesGorilas1Derecha=[];
   this.arrayImagesMonoCaminandoDerecha=[];
   this.arrayImagesSaltoDerecha=[];
+  this.arrayImagesCaminaJefeDerecha=[];
+  this.arrayImagesGolpeJefeDerecha=[];
+  this.arrayImagesGolpePisoDerecha=[];
+  this.arrayImagesMuereJefeDerecha=[];
 
   //Arreglos movimiento Izquierda
   this.arrayImagesAtaque1Izquierda=[];
@@ -37,6 +49,10 @@ function Monkey(posicionX, posicionY, width, height, velocidadX, velocidadY){
   this.arrayImagesGorilas2Izquierda=[];
   this.arrayImagesMonoCaminandoIzquierda=[];
   this.arrayImagesSaltoIzquierda=[];
+  this.arrayImagesCaminaJefeIzquierda=[];
+  this.arrayImagesGolpeJefeIzquierda=[];
+  this.arrayImagesGolpePisoIzquierda=[];
+  this.arrayImagesMuereJefeIzquierda=[];
 }
 
 //Llena arreglos de imagenes
@@ -150,6 +166,79 @@ Monkey.prototype.cargaImagen=function(tipoMovimiento){
         this.arrayImagesSaltoIzquierda[i].src=arrayRutaSaltoIzquierda[i];
         this.arrayImagesSaltoIzquierda[i].onload = function(){
           console.log("Imagen salto izquierda" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.caminaJefeDerecha:
+      for(let i=0; i<arrayRutaCaminaJefeDerecha.length;i++){
+        this.arrayImagesCaminaJefeDerecha.push(new Image());
+        this.arrayImagesCaminaJefeDerecha[i].src=arrayRutaCaminaJefeDerecha[i];
+        this.arrayImagesCaminaJefeDerecha[i].onload = function(){
+          console.log("Imagen camina jefe derecha" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.caminaJefeIzquierda:
+      for(let i=0; i<arrayRutaCaminaJefeIzquierda.length;i++){
+        this.arrayImagesCaminaJefeIzquierda.push(new Image());
+        this.arrayImagesCaminaJefeIzquierda[i].src=arrayRutaCaminaJefeIzquierda[i];
+        this.arrayImagesCaminaJefeIzquierda[i].onload = function(){
+          console.log("Imagen camina jefe izquierda" + i + " cargada");
+          this.draw(this.arrayImagesCaminaJefeIzquierda[0]);
+        }.bind(this);
+      }
+    break;
+    case this.golpeJefeDerecha:
+      for(let i=0; i<arrayRutaGolpeJefeDerecha.length;i++){
+        this.arrayImagesGolpeJefeDerecha.push(new Image());
+        this.arrayImagesGolpeJefeDerecha[i].src=arrayRutaGolpeJefeDerecha[i];
+        this.arrayImagesGolpeJefeDerecha[i].onload = function(){
+          console.log("Imagen golpe jefe derecha" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.golpeJefeIzquierda:
+      for(let i=0; i<arrayRutaGolpeJefeIzquierda.length;i++){
+        this.arrayImagesGolpeJefeIzquierda.push(new Image());
+        this.arrayImagesGolpeJefeIzquierda[i].src=arrayRutaGolpeJefeIzquierda[i];
+        this.arrayImagesGolpeJefeIzquierda[i].onload = function(){
+          console.log("Imagen golpe jefe izquierda" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.golpePisoDerecha:
+      for(let i=0; i<arrayRutaGolpePisoDerecha.length;i++){
+        this.arrayImagesGolpePisoDerecha.push(new Image());
+        this.arrayImagesGolpePisoDerecha[i].src=arrayRutaGolpePisoDerecha[i];
+        this.arrayImagesGolpePisoDerecha[i].onload = function(){
+          console.log("Imagen golpe piso derecha" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.golpePisoIzquierda:
+      for(let i=0; i<arrayRutaGolpePisoIzquierda.length;i++){
+        this.arrayImagesGolpePisoIzquierda.push(new Image());
+        this.arrayImagesGolpePisoIzquierda[i].src=arrayRutaGolpePisoIzquierda[i];
+        this.arrayImagesGolpePisoIzquierda[i].onload = function(){
+          console.log("Imagen golpe piso izquierda" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.muereJefeDerecha:
+      for(let i=0; i<arrayRutaMuereJefeDerecha.length;i++){
+        this.arrayImagesMuereJefeDerecha.push(new Image());
+        this.arrayImagesMuereJefeDerecha[i].src=arrayRutaMuereJefeDerecha[i];
+        this.arrayImagesMuereJefeDerecha[i].onload = function(){
+          console.log("Imagen muere jefe derecha" + i + " cargada");
+        }.bind(this);
+      }
+    break;
+    case this.muereJefeIzquierda:
+      for(let i=0; i<arrayRutaMuereJefeIzquierda.length;i++){
+        this.arrayImagesMuereJefeIzquierda.push(new Image());
+        this.arrayImagesMuereJefeIzquierda[i].src=arrayRutaMuereJefeIzquierda[i];
+        this.arrayImagesMuereJefeIzquierda[i].onload = function(){
+          console.log("Imagen muere jefe izquierda" + i + " cargada");
         }.bind(this);
       }
     break;

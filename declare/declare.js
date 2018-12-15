@@ -9,21 +9,54 @@ let monkeyHeroPosX=600;
 let monkeyHeroPosY=560;
 let balasWidth=40;
 let balasHeight=40;
-let balasVelocidad=4;
+let balasVelocidad=5.5;
 let scoreWidth=300;
 let scoreHeight=100;
 let readyWidth=500;
 let readyHeight=500;
 let gameOverWidth=500;
 let gameOverHeight=500;
+let warWidth=500;
+let warHeight=500;
+let levelWidth=600;
+let levelHeight=600;
 let maxTimeImpacto=32;
 let imageScore= new Image();
+let imageScoreChief= new Image();
 let imageReady= new Image();
 let imageGameOver= new Image();
 let imageEnter = new Image();
 let imageImpacto1 = new Image();
 let imageImpacto2 = new Image();
 let imageCocos= new Image();
+let imageWar= new Image();
+let imageLevel= new Image();
+let board = new Board();
+let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth, monkeyHeroHeight, monkeyHeroVelX, monkeyHeroVelY);
+let interval, frames = 1;
+let arregloGorilas = [];
+let arregloFrutas = [];
+let arregloLoros = [];
+let arregloImpactos = [];
+let numeroEnemigos = 0;
+let numeroFrutas = 0;
+let tipoFruta = 0;
+let tamañoFruta = 0;
+let keyPressedLeft=false;
+let keyPressedRight=false;
+let tipoGorila="G";
+let tipoPajaro="P";
+let cocosTime=false;
+let puntosCocosTime=0;
+let controlEntroCocos=false;
+let gorilaChief = null;
+let gorilaChiefWidth=140;
+let gorilaChiefHeight=140;
+let gorilaChiefVelX=5;
+let gorilaChiefVelY=6;
+let gorilaChiefPosX=1270;
+let gorilaChiefPosY=480;
+let golpeaPisoPosXIni=0;
 
 //Arreglos ruta imagenes
 let arrayRutaAtaque1Derecha=["./images/Ataque1Derecha/ataque1.png",
@@ -58,12 +91,12 @@ let arrayRutaBalasPowIzquierda=["./images/Balas2Izquierda/bala2.png",
                                 "./images/Balas2Izquierda/bala6.png"];
 
 let arrayRutaFrutas=["./images/Frutas/limon.png",
-                        "./images/Frutas/pera.png",
-                        "./images/Frutas/pinia.png",
-                        "./images/Frutas/platanos.png",
-                        "./images/Frutas/sandia.png",
-                        "./images/Frutas/uvas.png",
-                        "./images/Frutas/coco.png"];
+                      "./images/Frutas/pera.png",
+                      "./images/Frutas/pinia.png",
+                      "./images/Frutas/platanos.png",
+                      "./images/Frutas/sandia.png",
+                      "./images/Frutas/uvas.png",
+                      "./images/Frutas/coco.png"];
 
 let arrayRutaGolpeCocosDerecha=["./images/GolpeCocosDerecha/cocos1.png",
                                 "./images/GolpeCocosDerecha/cocos2.png",
@@ -163,23 +196,73 @@ let arrayRutaLoroIzquierda=["./images/LorosIzquierda/loro1.png",
                             "./images/LorosIzquierda/loro7.png",
                             "./images/LorosIzquierda/loro8.png"];
 
-let arrayRutaTrampa=["./images/Trampa/trampa.png"];
+let arrayRutaCaminaJefeDerecha=["./images/CaminaJefeDerecha/camina1.png",
+                                "./images/CaminaJefeDerecha/camina2.png",
+                                "./images/CaminaJefeDerecha/camina3.png",
+                                "./images/CaminaJefeDerecha/camina4.png",
+                                "./images/CaminaJefeDerecha/camina5.png",
+                                "./images/CaminaJefeDerecha/camina6.png",
+                                "./images/CaminaJefeDerecha/camina7.png",
+                                "./images/CaminaJefeDerecha/camina8.png"];
 
-let board = new Board();
-let monkeyHero = new MonkeyHero(monkeyHeroPosX, monkeyHeroPosY, monkeyHeroWidth, monkeyHeroHeight, monkeyHeroVelX, monkeyHeroVelY);
-let interval, frames = 1;
-let arregloGorilas = [];
-let arregloFrutas = [];
-let arregloLoros = [];
-let arregloImpactos = [];
-let numeroEnemigos = 0;
-let numeroFrutas = 0;
-let tipoFruta = 0;
-let tamañoFruta = 0;
-let keyPressedLeft=false;
-let keyPressedRight=false;
-let tipoGorila="G";
-let tipoPajaro="P";
-let cocosTime=false;
-let puntosCocosTime=0;
-let controlEntroCocos=false;
+let arrayRutaCaminaJefeIzquierda=["./images/CaminaJefeIzquierda/camina1.png",
+                                  "./images/CaminaJefeIzquierda/camina2.png",
+                                  "./images/CaminaJefeIzquierda/camina3.png",
+                                  "./images/CaminaJefeIzquierda/camina4.png",
+                                  "./images/CaminaJefeIzquierda/camina5.png",
+                                  "./images/CaminaJefeIzquierda/camina6.png",
+                                  "./images/CaminaJefeIzquierda/camina7.png",
+                                  "./images/CaminaJefeIzquierda/camina8.png"];
+
+let arrayRutaGolpeJefeDerecha=["./images/GolpeJefeDerecha/golpe1.png",
+                                "./images/GolpeJefeDerecha/golpe2.png",
+                                "./images/GolpeJefeDerecha/golpe3.png",
+                                "./images/GolpeJefeDerecha/golpe4.png",
+                                "./images/GolpeJefeDerecha/golpe5.png",
+                                "./images/GolpeJefeDerecha/golpe6.png",
+                                "./images/GolpeJefeDerecha/golpe7.png",
+                                "./images/GolpeJefeDerecha/golpe8.png",
+                                "./images/GolpeJefeDerecha/golpe9.png"];
+
+let arrayRutaGolpeJefeIzquierda=["./images/GolpeJefeIzquierda/golpe1.png",
+                                  "./images/GolpeJefeIzquierda/golpe2.png",
+                                  "./images/GolpeJefeIzquierda/golpe3.png",
+                                  "./images/GolpeJefeIzquierda/golpe4.png",
+                                  "./images/GolpeJefeIzquierda/golpe5.png",
+                                  "./images/GolpeJefeIzquierda/golpe6.png",
+                                  "./images/GolpeJefeIzquierda/golpe7.png",
+                                  "./images/GolpeJefeIzquierda/golpe8.png",
+                                  "./images/GolpeJefeIzquierda/golpe9.png"];
+
+let arrayRutaGolpePisoDerecha=["./images/GolpePisoDerecha/golpePiso1.png",
+                                "./images/GolpePisoDerecha/golpePiso2.png",
+                                "./images/GolpePisoDerecha/golpePiso3.png",
+                                "./images/GolpePisoDerecha/golpePiso4.png",
+                                "./images/GolpePisoDerecha/golpePiso5.png",
+                                "./images/GolpePisoDerecha/golpePiso6.png",
+                                "./images/GolpePisoDerecha/golpePiso7.png"];
+
+let arrayRutaGolpePisoIzquierda=["./images/GolpePisoIzquierda/golpePiso1.png",
+                                  "./images/GolpePisoIzquierda/golpePiso2.png",
+                                  "./images/GolpePisoIzquierda/golpePiso3.png",
+                                  "./images/GolpePisoIzquierda/golpePiso4.png",
+                                  "./images/GolpePisoIzquierda/golpePiso5.png",
+                                  "./images/GolpePisoIzquierda/golpePiso6.png",
+                                  "./images/GolpePisoIzquierda/golpePiso7.png"];
+
+let arrayRutaMuereJefeDerecha=["./images/MuereJefeDerecha/muere1.png",
+                                "./images/MuereJefeDerecha//muere2.png",
+                                "./images/MuereJefeDerecha//muere3.png",
+                                "./images/MuereJefeDerecha//muere4.png",
+                                "./images/MuereJefeDerecha//muere5.png",
+                                "./images/MuereJefeDerecha//muere6.png"];
+
+let arrayRutaMuereJefeIzquierda=["./images/MuereJefeIzquierda/muere1.png",
+                                "./images/MuereJefeIzquierda//muere2.png",
+                                "./images/MuereJefeIzquierda//muere3.png",
+                                "./images/MuereJefeIzquierda//muere4.png",
+                                "./images/MuereJefeIzquierda//muere5.png",
+                                "./images/MuereJefeIzquierda//muere6.png"];
+
+
+let arrayRutaTrampa=["./images/Trampa/trampa.png"];

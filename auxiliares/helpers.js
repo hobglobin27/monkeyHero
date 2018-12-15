@@ -54,7 +54,8 @@ function pintaHealth(){
   ctx.fillStyle ="white";
   ctx.fillText("Gorilla Grodd",1110,30);
   ctx.fillText("Health:",1085,57);
-  ctx.fillText(gorilaChief.health,1175,57);
+  ctx.fillText(gorilaChief.porcentajeHealth,1175,57);
+  ctx.fillText("%",1205,57);
 }
 
 function pintaReady(){
@@ -781,6 +782,7 @@ function impactoBalasGorilaChief(){
   for(let i=0; i<monkeyHero.arregloBalas.length;i++){
     if(gorilaChief!=null && monkeyHero.arregloBalas[i]!=null && gorilaChief.deadBala(monkeyHero.arregloBalas[i])){
       gorilaChief.health--;
+      gorilaChief.porcentajeHealth=gorilaChief.health*100/gorilaChief.maxHealth;
       arregloImpactos.push(new Object);
       arregloImpactos[arregloImpactos.length-1].posX=golpeaPisoPosXIni-20;
       if(monkeyHero.x>gorilaChief.x)

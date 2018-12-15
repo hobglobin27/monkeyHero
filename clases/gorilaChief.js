@@ -8,12 +8,13 @@ function GorilaChief(posicionX, posicionY, width, height, velocidadX, velocidadY
   this.siMuere=false;
   //Control gorilaChief
   this.health=20;
+  this.porcentajeHealth=100;
   this.puntos=1000;
   this.contSecMovLeftRight=0;
   //Banderas
   this.mueveDerecha=true;
-
-
+  //Constantes Derecha
+  this.maxHealth=20;
 }
 
 GorilaChief.prototype= Object.create(Monkey.prototype);
